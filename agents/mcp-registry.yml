@@ -5,7 +5,7 @@ description: "Registro centralizado de 25 MCP providers con asignación a agente
 updated: "2025-11-16"
 
 metadata:
-  total_providers: 29
+  total_providers: 30
   total_tiers: 6
   vault_base_path: "smarteros/mcp/"
   policy_prefix: "mcp-"
@@ -80,6 +80,109 @@ providers:
       command: "vault status"
       expect: "unsealed"
       interval: "1m"
+  
+    clerk:
+      tier: 1
+      category: "core"
+      primary_agent: "director-gemini"
+      secondary_agents: ["writer-copilot", "executor-codex"]
+    
+      mcp_server:
+        name: "clerk-mcp-tools"
+        npm_package: "@clerk/mcp-tools"
+        repository: "https://github.com/clerk/mcp-tools"
+        deployment: "integrated"
+        connection: "library"
+    
+      auth:
+        method: "api-key"
+        vault_path: "smarteros/mcp/clerk"
+        keys: ["clerk_publishable_key", "clerk_secret_key", "clerk_jwt_key", "clerk_webhook_secret"]
+        vault_policy: "mcp-clerk-read"
+    
+      capabilities:
+        gemini:
+          description: "Orchestrates authentication flows and user onboarding"
+          read: ["users_list", "user_get", "session_validate", "oauth_providers"]
+          write: []
+          use_cases:
+            - "User onboarding flow orchestration"
+            - "Session validation and renewal"
+            - "OAuth provider configuration"
+            - "User lifecycle management"
+      
+        copilot:
+          description: "Generates authentication code and documentation"
+          read: ["user_get", "oauth_providers"]
+          write: []
+          use_cases:
+            - "Generate Clerk middleware code"
+            - "Create authentication components"
+            - "Document OAuth flows"
+            - "Write user management utilities"
+      
+        codex:
+          description: "Database sync and session validation"
+          read: ["user_get", "session_validate", "tokens_validate"]
+          write: ["user_create", "user_update"]
+          use_cases:
+            - "Sync Clerk users to Supabase"
+            - "Validate tokens in API routes"
+            - "Update user metadata on events"
+            - "Batch user operations"
+    
+      tools:
+        - "clerk_users_list"
+        - "clerk_user_get"
+        - "clerk_user_create"
+        - "clerk_user_update"
+        - "clerk_oauth_providers"
+        - "clerk_session_validate"
+        - "clerk_tokens_validate"
+    
+      tools_count: 7
+      categories: ["users", "oauth", "sessions"]
+    
+      rate_limit:
+        free_tier: "20,000/month"
+        pro_tier: "unlimited"
+        per_tool:
+          users_list: "100/min"
+          user_get: "100/min"
+          user_create: "20/min"
+          user_update: "20/min"
+          session_validate: "100/min"
+          tokens_validate: "100/min"
+          oauth_providers: "10/min"
+    
+      multi_tenant: true
+      required: true
+    
+      integration:
+        google_oauth: true
+        supabase_sync: true
+        localization: "es-CL"
+    
+      notes: |
+        Clerk MCP Tools para autenticación y gestión de usuarios.
+      
+        Flujo completo:
+        1. Usuario → Google OAuth en Clerk
+        2. director-gemini → orchestrates onboarding
+        3. executor-codex → syncs to Supabase (users, tenants tables)
+        4. Shopify gate: products visible only if shopify_connected=true
+      
+        7 herramientas:
+        - Users CRUD (list, get, create, update)
+        - OAuth providers (list, configure)
+        - Sessions (validate JWT, validate access tokens)
+      
+        Localización: Español (Chile) - es-CL
+        OAuth: Google Sign-In con scopes openid, profile, email
+      
+        Aplicaciones:
+        - fulldaygo.smarterbot.cl (producción)
+        - demo.smarterbot.cl (demo aislado)
   
   smartermcp:
     tier: 1
@@ -704,27 +807,27 @@ providers:
 
 access_matrix:
   director-gemini:
-    tier_1: ["github", "vault", "smartermcp", "supabase"]
+    tier_1: ["github", "vault", "clerk", "smartermcp", "supabase"]
     tier_2: ["shopify", "metabase", "odoo", "n8n", "stripe"]
     tier_3: ["openai", "anthropic", "google"]
     tier_4: ["slack", "twilio", "whatsapp", "mailgun"]
     tier_5: ["linear", "notion"]
     tier_6: ["blogbowl-filesystem", "callcenter-conversation", "callcenter-speech"]
-    total: 19
+    total: 20
   
   writer-copilot:
-    tier_1: ["github", "vault", "smartermcp", "supabase"]
+    tier_1: ["github", "vault", "clerk", "smartermcp", "supabase"]
     tier_3: ["context7"]
     tier_6: ["blogbowl-filesystem"]
-    total: 6
+    total: 7
   
   executor-codex:
-    tier_1: ["github", "vault", "smartermcp", "docker", "hostinger"]
+    tier_1: ["github", "vault", "clerk", "smartermcp", "docker", "hostinger"]
     tier_2: ["n8n"]
     tier_4: ["slack"]
     tier_5: ["cloudflare", "aws", "caddy"]
     tier_6: ["callcenter-conversation"]
-    total: 11
+    total: 12
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Health & Monitoring

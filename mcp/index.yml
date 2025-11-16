@@ -5,8 +5,8 @@ version: "2.0"
 updated: "2025-11-16"
 
 metadata:
-  total_providers: 26
-  active_providers: 26
+  total_providers: 27
+  active_providers: 27
   vault_path: "smarteros/mcp/"
   registry_spec: "smarteros-specs/agents/mcp-registry.yml"
   bootstrap_script: "scripts/bootstrap-mcp-vault.sh"
@@ -34,6 +34,20 @@ tier_1_core:
       status: "active"
       secrets:
         - token
+    
+      - name: "clerk"
+        vault_path: "smarteros/mcp/clerk"
+        required: true
+        agents: ["gemini", "copilot", "codex"]
+        status: "active"
+        mcp_server: "@clerk/mcp-tools"
+        npm_package: "@clerk/mcp-tools"
+        config: "mcp/clerk.yml"
+        secrets:
+          - clerk_publishable_key
+          - clerk_secret_key
+          - clerk_jwt_key
+          - clerk_webhook_secret
     
     - name: "smartermcp"
       vault_path: "smarteros/mcp/smartermcp"
@@ -281,8 +295,8 @@ tier_5_devops:
 
 agent_access:
   director-gemini:
-    total: 16
-    required: ["github", "vault", "smartermcp", "supabase"]
+    total: 17
+    required: ["github", "vault", "clerk", "smartermcp", "supabase"]
     optional:
       tier_2: ["shopify", "metabase", "odoo", "n8n", "stripe"]
       tier_3: ["openai", "anthropic", "google"]
@@ -290,15 +304,15 @@ agent_access:
       tier_5: ["linear", "notion"]
   
   writer-copilot:
-    total: 5
-    required: ["github", "vault", "smartermcp", "supabase"]
+    total: 6
+    required: ["github", "vault", "clerk", "smartermcp", "supabase"]
     optional:
       tier_2: ["shopify"]
       tier_3: ["context7"]
   
   executor-codex:
-    total: 10
-    required: ["github", "vault", "smartermcp", "docker", "hostinger"]
+    total: 11
+    required: ["github", "vault", "clerk", "smartermcp", "docker", "hostinger"]
     optional:
       tier_2: ["n8n"]
       tier_4: ["slack"]

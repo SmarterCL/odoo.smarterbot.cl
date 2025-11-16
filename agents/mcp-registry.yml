@@ -5,7 +5,7 @@ description: "Registro centralizado de 25 MCP providers con asignación a agente
 updated: "2025-11-16"
 
 metadata:
-  total_providers: 28
+  total_providers: 29
   total_tiers: 6
   vault_base_path: "smarteros/mcp/"
   policy_prefix: "mcp-"
@@ -80,6 +80,82 @@ providers:
       command: "vault status"
       expect: "unsealed"
       interval: "1m"
+  
+  smartermcp:
+    tier: 1
+    category: "core"
+    primary_agent: "executor-codex"
+    secondary_agents: ["director-gemini", "writer-copilot"]
+    
+    mcp_server:
+      name: "smartermcp"
+      package: "@smartercl/mcp-server"
+      repository: "https://github.com/SmarterCL/smartermcp-server"
+      deployment: "self-hosted"
+      endpoint: "https://mcp.smarterbot.cl"
+      connection: "mcp-remote"
+    
+    auth:
+      method: "api-token"
+      vault_path: "smarteros/mcp/smartermcp"
+      keys: ["api_token", "tenant_id", "endpoint"]
+      vault_policy: "mcp-smartermcp-read"
+    
+    capabilities:
+      codex:
+        services: ["list", "health", "deploy", "restart", "logs"]
+        workflows: ["list", "trigger", "status", "create"]
+        infrastructure: ["status", "metrics", "containers_list", "containers_restart"]
+        use_cases:
+          - "Deploy and manage services"
+          - "Trigger backup workflows"
+          - "Monitor infrastructure"
+          - "Restart failed containers"
+      
+      gemini:
+        analytics: ["kpis", "dashboards", "reports"]
+        crm: ["contacts_list", "contacts_search", "opportunities_list", "pipeline_status"]
+        support: ["conversations_list", "conversations_search", "agents_status", "metrics"]
+        bots: ["list", "conversations", "analytics"]
+        use_cases:
+          - "Strategic planning from KPIs"
+          - "Customer insights from CRM/support"
+          - "Sales pipeline analysis"
+          - "Bot performance monitoring"
+      
+      copilot:
+        documentation: ["services", "apis", "schemas"]
+        code_generation: ["n8n_workflow", "botpress_skill", "api_client"]
+        use_cases:
+          - "Generate N8N workflows"
+          - "Create Botpress skills"
+          - "Scaffold API integrations"
+    
+    tools_count: 35
+    categories: ["services", "workflows", "analytics", "crm", "support", "bots", "infrastructure", "documentation", "code_generation"]
+    
+    rate_limit: "100/minute"
+    multi_tenant: true
+    required: true
+    
+    notes: |
+      SmarterMCP es el MCP server oficial de SmarterOS que expone
+      todos los servicios del sistema (N8N, Supabase, Odoo, Chatwoot,
+      Botpress, Metabase) a través de una interfaz unificada.
+      
+      35 tools organizados en 9 categorías:
+      - Services management (5 tools)
+      - N8N workflows (4 tools)
+      - Analytics/Metabase (3 tools)
+      - CRM/Odoo (4 tools)
+      - Support/Chatwoot (4 tools)
+      - Bots/Botpress (3 tools)
+      - Infrastructure (4 tools)
+      - Documentation (3 tools)
+      - Code generation (3 tools)
+      
+      Multi-tenant nativo con tenant_id en API token.
+      SDKs disponibles en TypeScript y Python.
   
   docker:
     tier: 1
@@ -628,27 +704,27 @@ providers:
 
 access_matrix:
   director-gemini:
-    tier_1: ["github", "vault", "supabase"]
+    tier_1: ["github", "vault", "smartermcp", "supabase"]
     tier_2: ["shopify", "metabase", "odoo", "n8n", "stripe"]
     tier_3: ["openai", "anthropic", "google"]
     tier_4: ["slack", "twilio", "whatsapp", "mailgun"]
     tier_5: ["linear", "notion"]
     tier_6: ["blogbowl-filesystem", "callcenter-conversation", "callcenter-speech"]
-    total: 18
+    total: 19
   
   writer-copilot:
-    tier_1: ["github", "vault", "supabase"]
+    tier_1: ["github", "vault", "smartermcp", "supabase"]
     tier_3: ["context7"]
     tier_6: ["blogbowl-filesystem"]
-    total: 5
+    total: 6
   
   executor-codex:
-    tier_1: ["github", "vault", "docker", "hostinger"]
+    tier_1: ["github", "vault", "smartermcp", "docker", "hostinger"]
     tier_2: ["n8n"]
     tier_4: ["slack"]
     tier_5: ["cloudflare", "aws", "caddy"]
     tier_6: ["callcenter-conversation"]
-    total: 10
+    total: 11
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Health & Monitoring

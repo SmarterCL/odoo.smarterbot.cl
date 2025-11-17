@@ -219,10 +219,10 @@ Usuario (WhatsApp): "¿Cuánto debo?"
   → n8n workflow: query Odoo invoices via MCP
   → MCP: GET /api/odoo/invoices (X-SMOS-Identity + HMAC)
   → Odoo: return invoices (amount_due)
-  → n8n: return {"amount_due": "$1,250.00", "invoice_id": "INV-2025-001"}
+  → n8n: return {"amount_due": "XXX.XX", "invoice_id": "INV-2025-001"}
   → Botpress billing agent: response
   → Chatwoot: POST /api/v1/accounts/{account_id}/conversations/{id}/messages
-  → WhatsApp: "Tienes un saldo pendiente de $1,250.00 (Factura INV-2025-001)"
+  → WhatsApp: "Tienes un saldo pendiente de XXX.XX (Factura INV-2025-001)"
 ```
 
 **Validación:**
@@ -256,7 +256,7 @@ Usuario (WhatsApp): [envía PDF factura]
   → n8n: Vision API → extract invoice data
   → n8n: LLM intent classification
   → n8n: MCP update Odoo invoice
-  → Botpress: response "Factura procesada: $450.00, vencimiento 2025-02-15"
+  → Botpress: response "Factura procesada: XXX.XX, vencimiento 2025-02-15"
   → Chatwoot → WhatsApp
 ```
 
@@ -276,7 +276,7 @@ Usuario (WhatsApp): [envía PDF factura]
 |---------|--------|--------|
 | Latencia end-to-end | < 5s | ⏳ Pendiente |
 | Accuracy clasificación | > 85% | ⏳ Pendiente |
-| Costo por mensaje | < $0.005 | ⏳ Pendiente |
+| Eficiencia de recursos | Alta | ⏳ Pendiente |
 | Uptime sandbox | > 95% | ⏳ Pendiente |
 | Tests passing | 3/3 escenarios | ⏳ Pendiente |
 

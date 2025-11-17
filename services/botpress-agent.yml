@@ -835,35 +835,35 @@ references:
     - "Vault (secrets management)"
 
 # ============================================
-# COST ESTIMATION
+# RESOURCE REQUIREMENTS
 # ============================================
 
-costs:
+resources:
   shared_instance:
     infrastructure:
-      - "Hostinger VPS: $20/month (existing)"
-      - "Postgres storage: $0/month (existing)"
-      - "Redis: $0/month (existing)"
-      - "Total: $0/month adicional"
+      - "Hostinger VPS (existing)"
+      - "Postgres storage (existing)"
+      - "Redis (existing)"
+      - "Additional resources: minimal"
     
     llm_usage:
-      - "OpenAI GPT-4o: $5/1M input tokens, $15/1M output tokens"
-      - "Estimado 1000 conversaciones/mes: ~$50/month"
+      - "OpenAI GPT-4o (token-based pricing)"
+      - "Estimated usage: 1000 conversations/month"
     
     embeddings:
-      - "text-embedding-004: $0.00001/1k tokens"
-      - "Estimado 100k tokens/mes: ~$1/month"
+      - "text-embedding-004 (token-based)"
+      - "Estimated volume: 100k tokens/month"
     
-    total_monthly: "$51/month (1000 conversations)"
+    scalability: "Suitable for small to medium deployments"
   
   dedicated_instance:
     infrastructure:
-      - "Azure Container Apps: $80/month"
-      - "Postgres Flexible Server: $100/month"
-      - "Storage Account: $10/month"
-      - "Total: $190/month"
+      - "Azure Container Apps"
+      - "Postgres Flexible Server"
+      - "Storage Account"
+      - "Isolation level: per tenant"
     
-    llm_usage: "$50/month (same)"
-    embeddings: "$1/month (same)"
+    llm_usage: "Same as shared instance"
+    embeddings: "Same as shared instance"
     
-    total_monthly: "$241/month per tenant"
+    scalability: "Suitable for enterprise deployments"

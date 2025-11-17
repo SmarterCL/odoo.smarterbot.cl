@@ -7,11 +7,13 @@ Este repositorio contiene las specs centrales de SmarterOS, un sistema operativo
 SmarterOS combina:
 
 - **Odoo** como núcleo operativo (ERP)
-- **Shopify + MCP** como capa comercial (smarterbot.store)
-- **n8n** como motor de reglas y automatizaciones
+- **Chatwoot** como inbox multi-canal (WhatsApp, Email, Web)
+- **n8n** (Azure ACA) como motor de reglas y automatizaciones
+- **MCP** como capa de orquestación con Vault + HMAC
 - **Metabase** como analítica central
-- **AI Smarterbot** como copiloto
-- **Hostinger VPS** como entorno de ejecución
+- **AI Smarterbot** como copiloto (Gemini LLM + Vision)
+- **Azure Cloud** como entorno de producción (n8n, Postgres, Storage)
+- **Hostinger VPS** como backup (Portainer + legacy services)
 - **WhatsApp** como panel del fundador
 
 Toda la infraestructura, decisiones y servicios se describen aquí como fuente única de verdad (Single Source of Truth).
@@ -24,6 +26,13 @@ Toda la infraestructura, decisiones y servicios se describen aquí como fuente �
 - `infra/` – Infraestructura, VPS y red
 - `services/` – Catálogo de microservicios
 - `tenants/` – Plantillas y registro multi-tenant
+
+📚 **Documentación clave**
+
+- [`MULTI-CLOUD-ARCHITECTURE.md`](../docs/MULTI-CLOUD-ARCHITECTURE.md) – Arquitectura multi-cloud (Azure + Google + GitHub)
+- [`CHATWOOT-N8N-WEBHOOK-FLOW.md`](../docs/CHATWOOT-N8N-WEBHOOK-FLOW.md) – Integración Chatwoot ↔ n8n webhooks
+- [`n8n-workflow-ocr-classify.md`](../docs/n8n-workflow-ocr-classify.md) – Workflow OCR con clasificación LLM
+- [`IDENTITY-AUDIT-SPEC.md`](../docs/IDENTITY-AUDIT-SPEC.md) – Gobernanza de identidad RAG (smarterbotcl@gmail.com)
 
 🚀 **Objetivo**
 

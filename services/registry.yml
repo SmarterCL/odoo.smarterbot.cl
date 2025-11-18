@@ -167,7 +167,9 @@ services:
     name: "Botpress Conversational AI"
     type: "backend"
     status: "active"
-    url: "https://botpress.smarterbot.cl"
+    url: "https://chat.smarterbot.cl"
+    aliases:
+      - "https://botpress.smarterbot.cl"
     tech_stack:
       platform: "Botpress"
       version: "12.26.0"
@@ -175,12 +177,12 @@ services:
       database: "PostgreSQL"
     deployment:
       platform: "Docker (VPS)"
-      container_name: "botpress"
+      container_name: "smarter-botpress"
       image: "botpress/server:latest"
       volumes:
         - "botpress-data:/botpress/data"
       ports:
-        - "3001:3000"
+        - "3000:3000"
     health_check:
       endpoint: "/api/v1/health"
       expected_status: 200
@@ -263,19 +265,26 @@ services:
     name: "Metabase Analytics"
     type: "infrastructure"
     status: "active"
-    url: "https://ai.smarteros.cl"
+    url: "https://kpi.smarterbot.cl"
+    aliases:
+      - "https://metabase.smarterbot.cl"
     tech_stack:
       platform: "Metabase"
       version: "latest"
-      database: "PostgreSQL"
+      database: "H2 (file-based)"
     deployment:
       platform: "Docker (VPS)"
-      container_name: "metabase"
+      container_name: "smarteros-metabase"
       image: "metabase/metabase:latest"
       volumes:
         - "metabase-data:/metabase-data"
       ports:
-        - "3002:3000"
+        - "3000:3000"
+    environment:
+      MB_DB_FILE: "/metabase-data/metabase.db"
+      MB_SITE_NAME: "SmarterOS Control"
+      MB_SITE_URL: "https://kpi.smarterbot.cl"
+      MB_EMBEDDING_APP_ORIGIN: "https://app.smarterbot.cl"
     health_check:
       endpoint: "/api/health"
       expected_status: 200
@@ -383,3 +392,68 @@ backup_priority:
     - metabase
   low:
     - redis
+
+  - id: "nexa"
+    name: "Nexa AI Server"
+    type: "backend"
+    status: "active"
+    url: "https://ai.smarterbot.store"
+    repository: "https://github.com/NexaAI/nexa-sdk"
+    tech_stack:
+      platform: "Nexa SDK"
+      version: "latest"
+      runtime: "Python"
+      language: "Python"
+    deployment:
+      platform: "Docker (VPS)"
+      container_name: "nexa-server"
+      image: "nexa-server:latest"
+      ports:
+        - "8000:8000"
+      environment:
+        MODEL_PATH: "/models"
+        CUDA_VISIBLE_DEVICES: "0"
+    features:
+      - On-device AI inference
+      - Support for GGUF, ONNX models
+      - Text generation
+      - Image generation
+      - Vision-language models
+      - Audio-language models
+    health_check:
+      endpoint: "/health"
+      expected_status: 200
+      interval: "10m"
+
+  - id: "dokploy"
+    name: "Dokploy Deployment Platform"
+    type: "infrastructure"
+    status: "active"
+    url: "https://dokploy.smarterbot.cl"
+    aliases:
+      - "https://dokploy.smarterbot.store"
+    repository: "https://github.com/Dokploy/dokploy"
+    tech_stack:
+      platform: "Dokploy"
+      version: "latest"
+      runtime: "Node.js"
+    deployment:
+      platform: "Docker (VPS)"
+      container_name: "dokploy"
+      image: "dokploy/dokploy:latest"
+      ports:
+        - "3000:3000"
+      environment:
+        DATABASE_URL: "postgresql://postgres:password@root-postgres-1:5432/dokploy"
+        REDIS_URL: "redis://redis:6379"
+    features:
+      - Application deployment
+      - Database management
+      - Docker management
+      - SSL certificates
+      - Environment variables management
+    health_check:
+      endpoint: "/"
+      expected_status: 200
+      interval: "10m"
+

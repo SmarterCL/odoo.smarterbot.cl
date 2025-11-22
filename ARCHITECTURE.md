@@ -32,7 +32,7 @@
 │  │   Frontend   │  │   Backend    │                    │
 │  │              │  │              │                    │
 │  │ • app.smarterbot.cl (Next.js)  │                    │
-│  │ • smarterbot.store (Shopify)   │                    │
+│  │ • tienda.smarterbot.cl (Next.js Storefront) │       │
 │  └──────────────┘  └──────────────┘                    │
 │                                                          │
 │  ┌────────────────────────────────────────────────┐     │
@@ -50,7 +50,7 @@
 │  │                                                │     │
 │  │  • Chatwoot (CRM)                             │     │
 │  │  • Botpress (AI Bots)                         │     │
-│  │  • WhatsApp Business API                      │     │
+│  │  • Resend (Email)                             │     │
 │  └────────────────────────────────────────────────┘     │
 │                                                          │
 │  ┌────────────────────────────────────────────────┐     │
@@ -72,9 +72,9 @@
 │  │                                                │     │
 │  │  Tier 0: Hostinger                            │     │
 │  │  Tier 1: GitHub, Docker, Vault, Supabase      │     │
-│  │  Tier 2: N8N, Odoo, Shopify, Metabase         │     │
+│  │  Tier 2: N8N, Odoo, Metabase, FastAPI Gateway │     │
 │  │  Tier 3: Claude, Context7, Deepgram, Assembly │     │
-│  │  Tier 4: Slack, WhatsApp, Chatwoot, Telegram  │     │
+│  │  Tier 4: Slack, Chatwoot, Telegram            │     │
 │  │  Tier 5: AWS, Cloudflare, Sentry, PostHog     │     │
 │  └────────────────────────────────────────────────┘     │
 └──────────────────────────────────────────────────────────┘
@@ -144,15 +144,18 @@ Ambos métodos coexisten y se complementan. API MCP controla la infraestructura,
 ## 🔌 Multi-Tenant Architecture
 
 Cada tenant tiene:
-- Subdominio Shopify propio
-- Base de datos aislada (RLS)
-- Workflows N8N dedicados
+- Subdominio/app Next.js propio
+- Datos aislados en Supabase (RLS por tenant)
+- Workflows n8n dedicados
+- Inbox Chatwoot propio
+- Bot Botpress entrenado (intents/flows)
+- Entidad/Company en Odoo (ventas/inventario)
 - KPIs Metabase propios
-- WhatsApp Business propio
+- Claves y secretos aislados en Vault
 
 ## 🔄 Data Flow
 
-1. Cliente → WhatsApp → Chatwoot → Bot IA
-2. Pedido → Shopify → N8N → Odoo → Facturación
-3. Envío → BlueExpress → Tracking → WhatsApp
-4. Métricas → Metabase → Dashboard → Decisiones
+1. Cliente → Web/Form → FastAPI → Chatwoot → Botpress (intent) → Odoo (lead/order)
+2. Productos/Inventario → Odoo → n8n sync → Supabase cache → Frontend
+3. Eventos (Chatwoot/Botpress/Odoo) → n8n → Supabase events → Metabase dashboards
+4. Emails → FastAPI → Resend → Cliente/Admin

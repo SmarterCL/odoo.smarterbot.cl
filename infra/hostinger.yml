@@ -136,7 +136,7 @@ services:
     sites:
       - "app.smarterbot.cl"
       - "smarterbot.cl"
-      - "vault.smarterbot.cl"
+      - "mainkey.smarterbot.cl"
       - "metabase.smarterbot.cl"
     status: "active"
   
@@ -221,7 +221,7 @@ monitoring:
         interval: "5m"
       
       - name: "Vault API"
-        url: "https://vault.smarterbot.cl:8200/v1/sys/health"
+        url: "http://mainkey.smarterbot.cl:8200/v1/sys/health"
         interval: "5m"
   
   logs:

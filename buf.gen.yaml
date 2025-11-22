@@ -45,8 +45,8 @@ plugins:
     opt:
       - pyi_out=gen/python
   
-  # Go Validator (protovalidate)
-  - remote: buf.build/bufbuild/protovalidate-go
-    out: gen/go
-    opt:
-      - paths=source_relative
+  # Go Validator (protovalidate) - commented out due to plugin issue
+  # - remote: buf.build/bufbuild/protovalidate-go
+  #   out: gen/go
+  #   opt:
+  #     - paths=source_relative

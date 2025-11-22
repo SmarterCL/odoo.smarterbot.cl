@@ -61,7 +61,7 @@ nodes:
     depends_on: [vault, redpanda]
 
   - id: vault
-    host: vault.smarterbot.cl
+    host: mainkey.smarterbot.cl
     kind: service
     description: HashiCorp Vault (tokens efímeros, mTLS, secrets)
     repo: https://github.com/SmarterCL/dkcompose

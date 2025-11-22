@@ -2,7 +2,7 @@
 
 ## 📋 Overview
 
-**smarterbot.store** es el storefront de SmarterOS basado en Shopify, implementado como una aplicación Next.js 15 que consume la Shopify Storefront API.
+**smarterbot.store** ahora es un frontend headless apoyado en Chatwoot (engagement), Botpress (conversación/automatización) y Odoo/Supabase (productos + datos), eliminando dependencia de Shopify y WhatsApp.
 
 ## 🏗️ Arquitectura
 
@@ -16,7 +16,7 @@
         │               │               │
         ▼               ▼               ▼
 ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
-│   Shopify    │ │  Supabase    │ │   WhatsApp   │
+│  Chatwoot    │ │  Supabase    │ │  Botpress    │
 │ Storefront   │ │  (Analytics) │ │  (Quick Buy) │
 │     API      │ │              │ │              │
 └──────────────┘ └──────────────┘ └──────────────┘
@@ -25,18 +25,18 @@
 ## 🎯 Funcionalidades
 
 ### Core Features
-- ✅ Catálogo de productos desde Shopify
+- ✅ Catálogo de productos (Odoo → Supabase cache)
 - ✅ Búsqueda y filtrado
-- ✅ Carrito de compras (Shopify Cart API)
-- ✅ Checkout integrado con Shopify
-- ✅ Tracking de analytics (Supabase)
-- ✅ Integración WhatsApp (compra rápida)
+- ✅ Carrito (custom / Odoo integration futura)
+- ✅ Tracking analytics (Supabase)
+- ✅ Soporte y contacto (Chatwoot)
+- ✅ Automatización conversacional (Botpress)
 
 ### Future Features
-- ⏳ Multi-tenant (tiendas por cliente)
+- ⏳ Multi-tenant (inbox/bot por cliente)
 - ⏳ Recomendaciones IA
-- ⏳ Chat en vivo (Chatwoot)
 - ⏳ Personalización por usuario
+- ⏳ Integraciones avanzadas Odoo
 
 ## 🔧 Stack Tecnológico
 
@@ -44,13 +44,12 @@
 - **Framework:** Next.js 15.2.4 (App Router)
 - **Language:** TypeScript 5
 - **Styling:** Tailwind CSS 3.4
-- **UI Components:** Custom + Shopify Hydrogen React
+**UI Components:** Custom + Design System interno
 
 ### APIs
-- **Shopify Storefront API:** GraphQL (2025-10)
-- **Shopify Admin API:** REST (para webhooks)
-- **Supabase:** Analytics tracking
-- **WhatsApp Business API:** Quick checkout
+**Chatwoot API:** Conversaciones, mensajes
+**Botpress API:** Intents, workflows
+**Supabase:** Analytics + cache catálogo
 
 ### Hosting
 - **Production:** Dokploy (Docker Compose en VPS)
@@ -72,16 +71,18 @@ front/store.smarterbot.cl/
 │   ├── cart/
 │   │   └── page.tsx            # Carrito de compras
 │   └── api/
-│       ├── webhooks/           # Shopify webhooks
+│       ├── webhooks/           # Eventos Chatwoot/Botpress
 │       └── analytics/          # Tracking endpoints
 ├── components/
 │   ├── header.tsx              # Navegación
 │   ├── footer.tsx              # Footer
 │   ├── product-card.tsx        # Tarjeta de producto
 │   ├── cart-button.tsx         # Botón carrito
-│   └── whatsapp-button.tsx     # Botón WhatsApp
+│   └── chatwoot-widget.tsx     # Widget Chatwoot
+│   └── botpress-widget.tsx     # Widget Botpress
 ├── lib/
-│   ├── shopify.ts              # Cliente Shopify API
+│   ├── chatwoot.ts             # Cliente Chatwoot API
+│   ├── botpress.ts             # Cliente Botpress API
 │   ├── supabase.ts             # Cliente Supabase
 │   └── utils.ts                # Utilidades
 ├── public/
@@ -96,12 +97,11 @@ front/store.smarterbot.cl/
 
 ## 🔐 Variables de Entorno
 
-### Shopify
+### Chatwoot
 ```env
-SHOPIFY_STORE_URL=smarterbot.myshopify.com
-SHOPIFY_STOREFRONT_ACCESS_TOKEN=# Public token
-SHOPIFY_ADMIN_API_TOKEN=shpat_# Private token (server only)
-SHOPIFY_API_VERSION=2025-10
+CHATWOOT_BASE_URL=https://chatwoot.smarterbot.cl
+CHATWOOT_TOKEN=pk_xxxxxxxxx
+CHATWOOT_INBOX_ID=1
 ```
 
 ### URLs
@@ -110,16 +110,17 @@ NEXT_PUBLIC_SITE_URL=https://smarterbot.store
 NEXT_PUBLIC_APP_URL=https://app.smarterbot.cl
 ```
 
-### Supabase (opcional, para analytics)
+### Supabase (analytics / catálogo cache)
 ```env
 SUPABASE_URL=https://<project>.supabase.co
 SUPABASE_SERVICE_KEY=# Service role key
 ```
 
-### WhatsApp (opcional)
+### Botpress
 ```env
-WHATSAPP_API_URL=https://evolution.smarterbot.cl
-WHATSAPP_TOKEN=# Bearer token
+BOTPRESS_URL=https://botpress.smarterbot.cl
+BOTPRESS_API_KEY=bp_xxxxxxxxx
+BOTPRESS_BOT_ID=leadbot
 ```
 
 ## 🚀 Deployment
@@ -156,19 +157,18 @@ docker compose --env-file .env up -d --build
 
 El dominio `smarterbot.store` puede configurarse de dos formas:
 
-### Opción 1: Direct Shopify (Recomendado para Phase 1)
-- Registros A apuntan a IPs de Shopify
-- Shopify maneja SSL y hosting
-- Este Next.js app actúa como proxy/extensión
+### Opción: Infra propia
+- Traefik/Caddy gestionan SSL
+- Subdominios por tenant (inbox/bot)
+- Control total sobre caching y orquestación
 
-### Opción 2: Custom Frontend (Phase 2+)
-- Next.js desplegado en Vercel
-- Consume Shopify como headless CMS
-- Mayor control sobre UX
+### Evolución
+- Integrar pricing / stock desde Odoo directo
+- Enriquecer intent detection con embeddings
 
 Script DNS disponible:
 ```bash
-~/dev/2025/configure-shopify-dns.sh
+~/dev/2025/configure-chatwoot-dns.sh
 ```
 
 ## 🔄 Shopify Integration
@@ -244,12 +244,12 @@ CREATE TABLE analytics_events (
 
 ## 🛒 Multi-tenant Strategy
 
-Para soportar múltiples tenants (cada uno con su tienda Shopify):
+Para soportar múltiples tenants (cada uno con su inbox / bot):
 
 ### Approach 1: Subdominios
 ```
-store.tenant-a.smarterbot.cl → Tienda Shopify A
-store.tenant-b.smarterbot.cl → Tienda Shopify B
+inbox.tenant-a.smarterbot.cl → Chatwoot Inbox A
+bot.tenant-b.smarterbot.cl → Botpress Bot B
 ```
 
 ### Approach 2: Query Parameter
@@ -271,7 +271,7 @@ tenant-b.store.smarterbot.cl (Vercel deployment B)
 
 #### Flujo: Nueva Orden
 ```
-Shopify Order Created Webhook
+Chatwoot Conversation Created Event
   │
   ▼
 n8n recibe webhook
@@ -284,7 +284,7 @@ n8n recibe webhook
 
 #### Flujo: Compra por WhatsApp
 ```
-Cliente envía mensaje WhatsApp
+Cliente inicia conversación en widget (Chatwoot/Botpress)
   │
   ▼
 Chatwoot recibe mensaje
@@ -294,8 +294,8 @@ Botpress detecta intent "quiero comprar"
   │
   ▼
 n8n workflow:
-  ├─► Buscar productos en Shopify
-  ├─► Enviar catálogo via WhatsApp
+  ├─► Buscar productos en Odoo
+  ├─► Botpress genera respuesta estructurada
   ├─► Generar link de pago
   └─► Track en Supabase
 ```
@@ -309,10 +309,10 @@ n8n workflow:
 - `GET /cart` - Carrito
 
 ### API Routes (Server-side)
-- `POST /api/webhooks/orders` - Shopify order webhooks
-- `POST /api/webhooks/products` - Shopify product webhooks
+- `POST /api/events/chatwoot` - Webhook Chatwoot
+- `POST /api/intents` - Botpress intent proxy
 - `POST /api/analytics/track` - Track custom event
-- `GET /api/products` - Proxy to Shopify (with caching)
+- `GET /api/products` - Productos (Odoo/Supabase)
 
 ## 🧪 Testing
 
@@ -323,31 +323,29 @@ pnpm test
 # E2E tests (Playwright)
 pnpm test:e2e
 
-# Validate Shopify connection
-curl https://smarterbot.store/api/health/shopify
+# Validate Chatwoot connection
+curl https://smarterbot.store/api/health/chatwoot
 ```
 
 ## 📚 Referencias
 
-- [Shopify Storefront API Docs](https://shopify.dev/docs/api/storefront)
-- [Shopify Admin API Docs](https://shopify.dev/docs/api/admin)
-- [Shopify Hydrogen (React components)](https://hydrogen.shopify.dev/)
+- [Chatwoot API Docs](https://www.chatwoot.com/developers/api)
+- [Botpress Cloud Docs](https://botpress.com/docs)
 - [Next.js 15 Docs](https://nextjs.org/docs)
 - [SmarterOS Architecture](../smarteros-specs/ARCHITECTURE.md)
 
 ## 🗺️ Roadmap
 
 ### Phase 1 (Current - MVP)
-- ✅ Estructura básica Next.js + Shopify
-- ✅ Catálogo de productos
-- ✅ Carrito + Checkout
+- ✅ Migración inicial a Chatwoot/Botpress/Odoo/Supabase
+- ✅ Catálogo base
 - ✅ Analytics básico
 
 ### Phase 2 (Q1 2026)
-- ⏳ Multi-tenant support
+- ⏳ Multi-tenant completo
 - ⏳ Recomendaciones IA
-- ⏳ Chat en vivo (Chatwoot)
-- ⏳ Integración completa WhatsApp
+- ⏳ Mejora intents Botpress
+- ⏳ Orquestación avanzada n8n
 
 ### Phase 3 (Q2 2026)
 - ⏳ Marketplace de skills/templates

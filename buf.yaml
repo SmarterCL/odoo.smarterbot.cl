@@ -1,9 +1,8 @@
 version: v2
 modules:
   - path: specs/proto
-name: buf.build/smartercl/smarteros
+    name: buf.build/smartercl/smarteros
 deps:
-  - buf.build/googleapis/googleapis
   - buf.build/bufbuild/protovalidate
 breaking:
   use:

@@ -40,7 +40,7 @@
 | api.smarterbot.cl | Error 1033 | Backend no definido |
 | api.chatwoot.smarterbot.cl | No configurado | Proxy a Chatwoot API |
 | mcp.smarterbot.cl | No configurado | MCP Server no deployado |
-| vault.smarterbot.cl | No configurado | Vault no deployado |
+| mainkey.smarterbot.cl | No configurado | Vault no deployado |
 | kafka.smarterbot.cl | No configurado | Kafka no deployado |
 | redpanda.smarterbot.cl | No configurado | Redpanda no deployado |
 | status.smarterbot.cl | No configurado | Health check dashboard |
@@ -69,7 +69,7 @@
 ### 4. Servicios Faltantes
 Definidos en specs pero NO deployados:
 - MCP Server (mcp.smarterbot.cl)
-- Vault (vault.smarterbot.cl)
+- Vault (mainkey.smarterbot.cl)
 - Kafka/Redpanda (kafka/redpanda.smarterbot.cl)
 - API Gateway (api.smarterbot.cl)
 

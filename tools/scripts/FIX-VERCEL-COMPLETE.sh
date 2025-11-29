@@ -1,64 +1,95 @@
 #!/bin/bash
 set -e
 
-echo "🔥 FIXING VERCEL DEPLOYMENTS LIKE A PRO"
-echo "========================================"
+echo "🔥 FIXING VERCEL DEPLOYMENTS - LIKE A PRO"
+echo "=========================================="
 
-# 1. Fix app.smarterbot.cl
+# Switch to app.smarterbot.cl
 echo ""
 echo "📦 Configuring app.smarterbot.cl..."
-cd /root/app-smarterbot-cl
+vercel link --project=app.smarterbot.cl --scope=smarterbotcl --yes
 
-# Add deployment protection bypass
-vercel env add VERCEL_AUTOMATION_BYPASS_SECRET "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" production --yes 2>/dev/null || true
-vercel env add VERCEL_AUTOMATION_BYPASS_SECRET "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" preview --yes 2>/dev/null || true
-vercel env add VERCEL_AUTOMATION_BYPASS_SECRET "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" development --yes 2>/dev/null || true
+# Remove and re-add Clerk keys
+echo "Updating CLERK keys..."
+vercel env rm NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY production --yes || true
+vercel env rm NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY preview --yes || true
+vercel env rm NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY development --yes || true
 
-# Fix Clerk keys
-vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" production --yes 2>/dev/null || true
-vercel env add CLERK_SECRET_KEY "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" production --yes 2>/dev/null || true
+echo "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" | vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY production
+echo "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" | vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY preview
+echo "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" | vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY development
 
-# Add other required vars
-vercel env add NEXT_PUBLIC_APP_URL "https://app.smarterbot.cl" production --yes 2>/dev/null || true
-vercel env add CLERK_COOKIE_DOMAIN ".smarterbot.cl" production --yes 2>/dev/null || true
-vercel env add MCP_ENABLED "true" production --yes 2>/dev/null || true
-vercel env add FASTAPI_URL "https://api.smarterbot.cl" production --yes 2>/dev/null || true
+vercel env rm CLERK_SECRET_KEY production --yes || true
+vercel env rm CLERK_SECRET_KEY preview --yes || true
+vercel env rm CLERK_SECRET_KEY development --yes || true
 
+echo "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" | vercel env add CLERK_SECRET_KEY production
+echo "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" | vercel env add CLERK_SECRET_KEY preview
+echo "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" | vercel env add CLERK_SECRET_KEY development
+
+# Add bypass secret
+echo "Adding VERCEL_AUTOMATION_BYPASS_SECRET..."
+vercel env rm VERCEL_AUTOMATION_BYPASS_SECRET production --yes || true
+vercel env rm VERCEL_AUTOMATION_BYPASS_SECRET preview --yes || true
+vercel env rm VERCEL_AUTOMATION_BYPASS_SECRET development --yes || true
+
+echo "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" | vercel env add VERCEL_AUTOMATION_BYPASS_SECRET production
+echo "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" | vercel env add VERCEL_AUTOMATION_BYPASS_SECRET preview
+echo "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" | vercel env add VERCEL_AUTOMATION_BYPASS_SECRET development
+
+echo ""
 echo "✅ app.smarterbot.cl configured"
 
-# 2. Fix app.smarterbot.store
+# Switch to app.smarterbot.store
 echo ""
 echo "📦 Configuring app.smarterbot.store..."
-cd /root/app-smarterbot-store
+vercel link --project=app.smarterbot.store --scope=smarterbotcl --yes
 
-# Add deployment protection bypass
-vercel env add VERCEL_AUTOMATION_BYPASS_SECRET "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" production --yes 2>/dev/null || true
-vercel env add VERCEL_AUTOMATION_BYPASS_SECRET "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" preview --yes 2>/dev/null || true
-vercel env add VERCEL_AUTOMATION_BYPASS_SECRET "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" development --yes 2>/dev/null || true
+# Update keys for store
+echo "Updating CLERK keys for store..."
+vercel env rm NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY production --yes || true
+vercel env rm NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY preview --yes || true
+vercel env rm NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY development --yes || true
 
-# Fix Clerk keys
-vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" production --yes 2>/dev/null || true
-vercel env add CLERK_SECRET_KEY "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" production --yes 2>/dev/null || true
+echo "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" | vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY production
+echo "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" | vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY preview
+echo "pk_test_c2V0dGxpbmctaG9nLTk3LmNsZXJrLmFjY291bnRzLmRldiQ" | vercel env add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY development
 
-# Add other required vars
-vercel env add NEXT_PUBLIC_APP_URL "https://app.smarterbot.store" production --yes 2>/dev/null || true
-vercel env add NEXT_PUBLIC_API_BASE_URL "https://api.smarterbot.cl" production --yes 2>/dev/null || true
-vercel env add CLERK_COOKIE_DOMAIN ".smarterbot.store" production --yes 2>/dev/null || true
+vercel env rm CLERK_SECRET_KEY production --yes || true
+vercel env rm CLERK_SECRET_KEY preview --yes || true
+vercel env rm CLERK_SECRET_KEY development --yes || true
 
+echo "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" | vercel env add CLERK_SECRET_KEY production
+echo "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" | vercel env add CLERK_SECRET_KEY preview
+echo "sk_test_74O53iKBUH9ZZLkbZQuCAba3XJIxxBvwxTNY0lifPz" | vercel env add CLERK_SECRET_KEY development
+
+vercel env rm VERCEL_AUTOMATION_BYPASS_SECRET production --yes || true
+vercel env rm VERCEL_AUTOMATION_BYPASS_SECRET preview --yes || true
+vercel env rm VERCEL_AUTOMATION_BYPASS_SECRET development --yes || true
+
+echo "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" | vercel env add VERCEL_AUTOMATION_BYPASS_SECRET production
+echo "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" | vercel env add VERCEL_AUTOMATION_BYPASS_SECRET preview
+echo "a9F3xQ7mP2rL8tW5vZ1cB4nH6sD0kR8q" | vercel env add VERCEL_AUTOMATION_BYPASS_SECRET development
+
+echo ""
 echo "✅ app.smarterbot.store configured"
 
-# 3. Redeploy both
+# Redeploy both
 echo ""
-echo "🚀 Triggering redeployments..."
-
-cd /root/app-smarterbot-cl
-vercel --prod --yes
-
-cd /root/app-smarterbot-store  
-vercel --prod --yes
+echo "🚀 Redeploying both projects..."
+echo ""
+echo "Deploying app.smarterbot.cl..."
+vercel link --project=app.smarterbot.cl --scope=smarterbotcl --yes
+vercel deploy --prod --force --yes
 
 echo ""
-echo "✅ DONE! Both apps redeploying now."
+echo "Deploying app.smarterbot.store..."
+vercel link --project=app.smarterbot.store --scope=smarterbotcl --yes
+vercel deploy --prod --force --yes
+
+echo ""
+echo "🎉 DONE! Both projects configured and deployed."
+echo ""
 echo "Check:"
-echo "  - https://app.smarterbot.cl/dashboard"
-echo "  - https://app.smarterbot.store/dashboard"
+echo "  https://app.smarterbot.cl/dashboard"
+echo "  https://app.smarterbot.store/dashboard"

@@ -1,209 +1,267 @@
-# 🧠 SmarterOS — Operating System Cognitivo para PYMEs Chile
-**Multi-Tenant Real • RUT Chileno • AI Multi-Agent • Shopify/Odoo Ready**
+# 🚀 SmarterOS — Monorepo Workspace 2025
 
-SmarterOS es un Sistema Operativo para negocios digitales, diseñado para las PYMEs de Chile.  
-Integra ERP, CRM, Chat, Automatizaciones, E-commerce, Marketing, KPI y AI Agents en una sola plataforma multi-tenant, con aislamiento por RUT y arquitectura cognitiva en 3 capas.
-
-✔ Auto-hosted en VPS (Hostinger)  
-✔ Multi-tenant real por RUT  
-✔ API Gateway + MCP + Vault  
-✔ Odoo 19 y Shopify listos para venta  
-✔ n8n + Botpress + Chatwoot + Metabase  
-✔ Portal Next.js con Clerk SSO  
-✔ Capacidades nativas de IA en cada módulo  
+**Owner:** SmarterCL  
+**Updated:** 2025-11-29  
+**Structure:** Monorepo with 17 Git submodules + multi-agent orchestration
 
 ---
 
-# 🚀 Visión
-Construir el primer Operating System cognitivo de LATAM, especializado en empresas con RUT chileno, enfocado en comercio, servicios, ventas por WhatsApp y automatización con IA.
+## 📁 Repository Structure
+
+```
+/Users/mac/dev/2025/
+├── .gitmodules              # Submodule registry (17 repos)
+├── smarteros-agents/        # 🧠 Multi-agent orchestrator (Gemini, Copilot, Codex)
+├── tools/                   # Deployment scripts (Vercel, n8n, Cloudflare, etc.)
+│   └── scripts/
+│       └── FIX-VERCEL-COMPLETE.sh
+├── odoo-deploy/             # Odoo deployment configs
+│
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Submodules (17 repos tracked via .gitmodules)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+│
+├── SmarterOS/               # Core OS specs
+├── Sologist/                # Sologist integration
+├── smarteros-os/            # OS runtime
+├── smarteros-specs/         # Master specs repository
+│
+├── dkcompose/               # Docker Compose orchestration
+├── smartercl-odoo/          # Odoo ERP customizations
+│
+# Frontend Apps
+├── app.smarterbot.cl/       # Main dashboard (Next.js + Clerk)
+├── app.smarterbot.store/    # E-commerce app (Next.js + Clerk)
+├── login.smarterbot.store/  # Auth service
+│
+# Landing Pages & Marketing
+├── smarterbot.cl/           # Corporate site
+├── smarterbot.store/        # Store landing
+├── fulldaygo.smarterbot.cl/ # FullDayGo service
+├── tienda.smarterbot.cl/    # Tienda variant
+├── nunex.lat/               # NUNEX project
+│
+# Backend Services
+├── api.smarterbot.cl/       # FastAPI backend (contacts, webhooks)
+├── crm.smarterbot.cl/       # CRM service
+└── ia.smarterbot.cl/        # AI/ML service
+```
 
 ---
 
-# 🏗️ Arquitectura General
+## 🧠 Multi-Agent System (`smarteros-agents/`)
 
-                  SmarterOS
-           ────────────────────────
-            Portal Maestro (Next.js)
-           /            |           \
-      ERP (Odoo)     CRM (Chatwoot)   Marketing (Blog)
-         |              |              |
-      Tienda Odoo    Chat IA        Landing
-         |              |              |
-     Automatizaciones (n8n) — Bot IA (Botpress)
-              |             |
-              +── KPI (Metabase)
+Tri-agent orchestration for automated development and deployment:
 
----
+### Agents
 
-# 🧩 Componentes Principales
+1. **🎯 Director (Gemini 2.0 Flash Thinking)**  
+   - Strategic planning and dependency analysis
+   - Consumes 10+ MCPs (Shopify, Supabase, Metabase, Slack, Notion, etc.)
+   - Spec: `smarteros-agents/director-gemini.yml`
 
-## 1) Portal Maestro — `app.smarterbot.cl`
-Next.js + Clerk SSO  
-Dashboard unificado  
-Acceso único (SSO)  
-Multi-tenant por RUT  
-Gestión de tenant, usuarios y dominios  
+2. **✍️ Writer (GitHub Copilot GPT-4)**  
+   - Code generation (TypeScript, Python, SQL)
+   - Style consistency and test generation
+   - Spec: `smarteros-agents/writer-copilot.yml`
 
----
+3. **🛠️ Executor (Codex CLI)**  
+   - Applies patches, runs builds, deploys to VPS
+   - Manages systemctl, Docker Compose, rsync
+   - Spec: `smarteros-agents/executor-codex.yml`
 
-## 2) ERP — `odoo.smarterbot.cl`
-Odoo 19.0  
-Ventas, inventario, compras, facturación  
-Tienda online + POS  
-Integración Shopify  
-Theme propio vía GitHub Actions  
-Addon Clerk integrado  
+4. **🛡️ Security Reviewer (Claude 3.5 Sonnet)**  
+   - OWASP Top 10 scanning, secret detection
+   - Blocks dangerous PRs automatically
+   - Spec: `smarteros-agents/reviewer-security.yml`
 
----
+5. **🏥 Health Monitor (Gemini Flash)**  
+   - Container health (CPU, RAM, logs)
+   - Anomaly detection and auto-recovery proposals
+   - Spec: `smarteros-agents/monitor-health.yml`
 
-## 3) CRM / Inbox — `crm.smarterbot.cl`
-Chatwoot omnicanal  
-WhatsApp, Email, Web, Instagram  
-Handoff AI ↔ humano  
-Workspaces por RUT  
-Integración n8n y Botpress  
+### Orchestration
 
----
+- **Coordinator:** `smarteros-agents/orchestrator.yml`
+- **MCP Registry:** `smarteros-agents/mcp-registry.yml` (31 providers across 6 tiers)
+- **Core Architecture:** `smarteros-agents/CORE-GRAPH.md` (412 lines)
 
-## 4) Automatizaciones — `n8n.smarterbot.store`
-Workflows ilimitados  
-OCR (Vision API)  
-Webhooks Shopify / Odoo  
-Clasificación LLM  
-Integraciones empresariales  
+### Workflow
 
----
-
-## 5) Bot IA — `botpress.smarterbot.store`
-Botpress Cloud + Self-hosted  
-AI multi-agent  
-RAG por tenant (pgvector)  
-Agentes especializados por rol  
-Handoff automático → Chatwoot  
+```
+Trigger (git push, issue, alert)
+    ↓
+🎯 Gemini analyzes context → generates plan
+    ↓
+✍️ Copilot generates code patches
+    ↓
+🛠️ Codex applies + builds + deploys
+    ↓
+🛡️ Security reviews changes
+    ↓
+🏥 Health monitors runtime
+```
 
 ---
 
-## 6) KPI — `kpi.smarterbot.cl`
-Metabase + PostgreSQL  
-Dashboards en tiempo real  
-Métricas por tenant  
-KPIs de ventas, soporte y conversión  
+## 🔗 Submodules Management
+
+### Initial Clone
+
+```bash
+git clone https://github.com/SmarterCL/smarteros-specs.git 2025
+cd 2025
+git submodule update --init --recursive
+```
+
+### Update All Submodules
+
+```bash
+git submodule foreach git pull origin main
+```
+
+### Update Specific Submodule
+
+```bash
+cd app.smarterbot.cl
+git pull origin main
+cd ..
+git add app.smarterbot.cl
+git commit -m "chore: update app.smarterbot.cl submodule"
+```
+
+### Add New Submodule
+
+```bash
+git submodule add https://github.com/SmarterCL/<new-repo>.git <path>
+git commit -m "feat: add <new-repo> submodule"
+```
 
 ---
 
-## 7) Marketing — `mkt.smarterbot.cl`
-Blog corporativo  
-Centro de contenido  
-Publicación vía GitHub Actions  
-SEO base  
+## 🛠️ Tools & Scripts (`tools/scripts/`)
+
+### Deployment
+
+- **`FIX-VERCEL-COMPLETE.sh`**: Configures Vercel env vars and deploys `app.smarterbot.{cl,store}`
+- **`configure-vercel-complete.sh`**: Vercel project setup
+- **`configure-dns-cloudflare.sh`**: Cloudflare DNS automation
+- **`configure-dns-mainkey.sh`**: Mainkey DNS setup
+
+### Services
+
+- **`chatwoot-smarter-config.sh`**: Chatwoot integration
+- **`configure-n8n-supabase.sh`**: n8n + Supabase workflows
+- **`create-n8n-workflow.sh`**: n8n workflow generator
+- **`check-metabase-dbs.sh`**: Metabase database health check
 
 ---
 
-# 🔐 IAM y Seguridad
+## 📦 Key Technologies
 
-## Clerk (SSO)
-Login unificado  
-JWT seguro  
-Roles por tenant  
-Sesiones modernas  
-
-## MCP + Vault
-Secrets por tenant  
-Audit logs  
-Policies por RUT  
-Integración segura de agentes  
-
-## Supabase (DB)
-Row-Level Security  
-Multi-tenant real  
-Realtime events  
-Tablas normalizadas  
+| Service                | Tech Stack                          | Repo                     |
+|------------------------|-------------------------------------|--------------------------|
+| Dashboard              | Next.js 15, Clerk, Tailwind         | `app.smarterbot.cl`      |
+| Store                  | Next.js 15, Clerk, React Hook Form  | `app.smarterbot.store`   |
+| API Backend            | FastAPI, Supabase, PostgreSQL       | `api.smarterbot.cl`      |
+| CRM                    | Next.js, Supabase, n8n              | `crm.smarterbot.cl`      |
+| AI/ML Service          | Python, OpenAI, Anthropic           | `ia.smarterbot.cl`       |
+| Orchestration          | Docker Compose, systemd             | `dkcompose`              |
+| ERP                    | Odoo 17, PostgreSQL                 | `smartercl-odoo`         |
+| Agent Orchestration    | YAML specs, GitHub Actions, Vault   | `smarteros-agents`       |
 
 ---
 
-# 🌐 Servicios en Producción
+## 🔐 Secrets Management
 
-| Servicio | Dominio |
-|----------|---------|
-| Portal | https://app.smarterbot.cl |
-| ERP | https://odoo.smarterbot.cl / https://erp.smarterbot.cl |
-| CRM | https://crm.smarterbot.cl |
-| Chat | https://chatwoot.smarterbot.store |
-| Automatizaciones | https://n8n.smarterbot.store |
-| Bots IA | https://botpress.smarterbot.store |
-| KPI | https://kpi.smarterbot.cl |
-| Marketing | https://mkt.smarterbot.store |
-| API Gateway | https://api.smarterbot.cl |
-| DevOps | https://dokploy.smarterbot.store |
+All secrets managed via **HashiCorp Vault**:
+- Base path: `smarteros/mcp/`
+- Policies: `mcp-{provider}-read`
+- Audit: Enabled
+- Registry: `smarteros-agents/mcp-registry.yml`
 
-Todos con SSL activo.
+### Protected Keys
+
+- `CLERK_SECRET_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+- `VERCEL_AUTOMATION_BYPASS_SECRET`
+- `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_ANON_KEY`
+- API tokens: Shopify, Metabase, n8n, OpenAI, Anthropic, Google
 
 ---
 
-# 🧠 Arquitectura Cognitiva (3 Capas)
+## 🚢 Deployment Flow
 
-Layer 1 — Inbox (Chatwoot)
-Layer 2 — Cognitive AI (Botpress + RAG)
-Layer 3 — Execution Engine (n8n)
+### Development → Production
 
-Latencia total: 2–7s  
-Aislamiento por RUT aplicado en toda la plataforma  
+1. **Local Development**
+   ```bash
+   cd app.smarterbot.cl
+   pnpm dev
+   ```
 
----
+2. **Commit & Push**
+   ```bash
+   git add .
+   git commit -m "feat: new feature"
+   git push origin main
+   ```
 
-# 🛠️ Tecnologías
+3. **Automatic Deployment**
+   - GitHub Actions triggers `orchestrator.yml`
+   - Gemini validates changes
+   - Copilot generates additional code if needed
+   - Codex builds and deploys to Vercel/VPS
+   - Security reviews PR
+   - Health monitors post-deploy
 
-- Odoo 19  
-- Next.js 14  
-- Clerk SSO  
-- FastAPI  
-- n8n  
-- Chatwoot  
-- Botpress  
-- Metabase  
-- PostgreSQL 16  
-- Supabase  
-- Caddy + Traefik  
-- Docker Compose  
-- Hostinger VPS  
+### Manual Deploy (VPS)
 
----
-
-# 📦 Repositorios
-
-- https://github.com/SmarterCL/smarteros-landing  
-- https://github.com/SmarterCL/smarteros-portal  
-- https://github.com/SmarterCL/smarteros-crm  
-- https://github.com/SmarterCL/smarteros-marketing  
-- https://github.com/SmarterCL/odoo-smarter-theme  
+```bash
+cd /root/<service>
+git pull origin main
+pnpm build
+systemctl restart <service>
+```
 
 ---
 
-# 💵 Modelo Comercial
+## 📊 Monitoring & Logs
 
-Free — Sandbox  
-Starter — $29/mes  
-Business — $99/mes  
-Enterprise — $299/mes  
-
----
-
-# 🚀 Roadmap 2026
-Pagos Chile (Webpay/Khipu)  
-Contabilidad automática  
-Booking inteligente  
-Shopify App oficial  
-Marketplace SmarterBot.store  
-Mobile PWA  
+- **Health Monitor:** Checks every 5 minutes
+- **Logs:** `/var/log/smarteros/`
+- **Metrics:** Metabase dashboards
+- **Alerts:** Slack + n8n webhooks
 
 ---
 
-# 📞 Contacto
-Email: smarterbotcl@gmail.com  
-WhatsApp: +56 9 7954 0471  
-Web: https://smarterbot.cl  
+## 🤝 Contributing
+
+1. Clone with submodules: `git clone --recursive`
+2. Create feature branch: `git checkout -b feature/<name>`
+3. Work in specific submodule: `cd <submodule>`
+4. Commit changes: `git commit` (inside submodule)
+5. Update parent: `cd .. && git add <submodule> && git commit`
+6. Push both: `git push` (in submodule) + `git push` (in parent)
 
 ---
 
-# 🟢 SmarterOS — Hecho en Chile para PYMEs de Chile
-Automatización, ventas, operaciones y AI en una sola plataforma cognitiva.
+## 📝 Notes
+
+- **Never commit secrets** to any repository
+- Use Vault for all sensitive data
+- Update submodules regularly: `git submodule update --remote`
+- Run security reviews before merging to `main`
+- Monitor container health after deployments
+
+---
+
+## �� Contact
+
+**Organization:** SmarterCL  
+**GitHub:** https://github.com/SmarterCL  
+**Repos:** 17 submodules + parent workspace
+
+---
+
+**Last Updated:** 2025-11-29  
+**Workspace Path:** `/Users/mac/dev/2025`

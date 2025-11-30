@@ -1,5 +1,5 @@
 # Dockerfile optimizado para Next.js standalone
-FROM node:20-alpine AS base
+FROM node:25-alpine AS base
 
 # Dependencias necesarias
 FROM base AS deps

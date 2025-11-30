@@ -1,7 +1,0 @@
-{
-  "framework": "nextjs",
-  "buildCommand": "npm run vercel-build",
-  "env": {
-    "NEXT_TELEMETRY_DISABLED": "1"
-  }
-}

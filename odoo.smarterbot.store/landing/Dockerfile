@@ -1,13 +1,11 @@
-# Dockerfile optimizado para Next.js standalone
-FROM node:25-alpine AS base
-
-# Dependencias necesarias
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# Etapa de dependencias
+FROM node:20-alpine AS deps
 WORKDIR /app
 
-# Instalar dependencias
-COPY package.json package-lock.json* pnpm-lock.yaml* ./
+# Evitar problemas de sharp / swc en alpine
+RUN apk add --no-cache libc6-compat
+
+COPY package.json package-lock.json* ./
 RUN \
   if [ -f pnpm-lock.yaml ]; then \
     corepack enable pnpm && pnpm install --frozen-lockfile; \

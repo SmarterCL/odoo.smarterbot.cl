@@ -4,7 +4,7 @@ Landing responsive (móvil + web) para presentar servicios Odoo + Automatizació
 
 ## Requisitos
 
-- Node.js >= 25
+- Node.js 20.x LTS
 - npm o pnpm
 - Docker (opcional)
 

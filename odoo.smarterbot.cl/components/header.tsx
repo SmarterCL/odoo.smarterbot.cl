@@ -15,6 +15,17 @@ const navItems = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const openDemo = () => {
+    const popup = window.open(
+      "https://flow.smarterbot.cl",
+      "smarterbotDemo",
+      "width=1200,height=800,noopener,noreferrer"
+    )
+    if (popup) {
+      popup.opener = null
+      popup.focus()
+    }
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-foreground/95 backdrop-blur-sm">
@@ -42,7 +53,12 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Ver Demo</Button>
+            <Button
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={openDemo}
+            >
+              Ver Demo
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -69,7 +85,15 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit">Ver Demo</Button>
+              <Button
+                className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit"
+                onClick={() => {
+                  openDemo()
+                  setMobileMenuOpen(false)
+                }}
+              >
+                Ver Demo
+              </Button>
             </nav>
           </div>
         )}

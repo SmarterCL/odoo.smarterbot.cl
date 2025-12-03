@@ -13,12 +13,14 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Teléfono",
-    value: "+56 9 XXXX XXXX",
+    value: "+56979540471",
+    href: "tel:+56979540471",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "contacto@smarteros.cl",
+    value: "contacto@smarterbot.cl",
+    href: "mailto:contacto@smarterbot.cl",
   },
   {
     icon: Clock,
@@ -70,7 +72,16 @@ export function ContactSection() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">{info.label}</p>
-                      <p className="text-sm font-medium text-foreground">{info.value}</p>
+                      {info.href ? (
+                        <a
+                          href={info.href}
+                          className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <p className="text-sm font-medium text-foreground">{info.value}</p>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

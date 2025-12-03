@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { openBookingPopup } from "@/lib/open-booking"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -79,6 +80,15 @@ export function ContactSection() {
               <p className="text-muted-foreground leading-relaxed">
                 SmarterOS Chile - Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
               </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Chile - proyectos remotos y presenciales.
+              </p>
+              <Button
+                className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={openBookingPopup}
+              >
+                Agenda una demo
+              </Button>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">

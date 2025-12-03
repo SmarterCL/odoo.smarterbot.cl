@@ -2,12 +2,14 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { openDemoPopup } from "@/lib/open-demo"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 const navItems = [
   { label: "Inicio", href: "#" },
   { label: "Servicios", href: "#servicios" },
+  { label: "Precios", href: "/precios" },
   { label: "Diferenciadores", href: "#diferenciadores" },
   { label: "Sectores", href: "#sectores" },
   { label: "Contacto", href: "#contacto" },
@@ -15,17 +17,6 @@ const navItems = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const openDemo = () => {
-    const popup = window.open(
-      "https://flow.smarterbot.cl",
-      "smarterbotDemo",
-      "width=1200,height=800,noopener,noreferrer"
-    )
-    if (popup) {
-      popup.opener = null
-      popup.focus()
-    }
-  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-foreground/95 backdrop-blur-sm">
@@ -55,7 +46,7 @@ export function Header() {
           <div className="hidden lg:block">
             <Button
               className="bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={openDemo}
+              onClick={openDemoPopup}
             >
               Ver Demo
             </Button>
@@ -88,7 +79,7 @@ export function Header() {
               <Button
                 className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit"
                 onClick={() => {
-                  openDemo()
+                  openDemoPopup()
                   setMobileMenuOpen(false)
                 }}
               >

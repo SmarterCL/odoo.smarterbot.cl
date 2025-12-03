@@ -1,6 +1,12 @@
+import Link from "next/link"
+import { openDemoPopup } from "@/lib/open-demo"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Zap, CheckCircle2 } from "lucide-react"
+
+const WHATSAPP_NUMBER = "56979540471"
+const WHATSAPP_MESSAGE = encodeURIComponent("Quiero una cita para el demo Odoo")
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`
 
 export function HeroSection() {
   return (
@@ -29,17 +35,23 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Button
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={openDemoPopup}
+              >
                 Quiero ver una demo
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-background/30 text-background hover:bg-background/10 bg-transparent"
-              >
-                Agenda una llamada 20 min
-              </Button>
+              <Link href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full border-background/30 text-background hover:bg-background/10 bg-transparent"
+                >
+                  Agenda una llamada 20 min
+                </Button>
+              </Link>
             </div>
 
             <div className="flex flex-wrap gap-6 pt-4">

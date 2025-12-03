@@ -41,10 +41,28 @@ export function ContactSection() {
     company: "",
     message: "",
   })
+  const [sending, setSending] = useState(false)
+  const [feedback, setFeedback] = useState<"idle" | "ok" | "error">("idle")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formData)
+    setSending(true)
+    setFeedback("idle")
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+      if (!res.ok) throw new Error("Error enviando formulario")
+      setFeedback("ok")
+      setFormData({ name: "", email: "", company: "", message: "" })
+    } catch (err) {
+      console.error(err)
+      setFeedback("error")
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -159,10 +177,17 @@ export function ContactSection() {
                   type="submit"
                   size="lg"
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                  disabled={sending}
                 >
-                  Enviar mensaje
+                  {sending ? "Enviando..." : "Enviar mensaje"}
                   <Send className="ml-2 w-4 h-4" />
                 </Button>
+                {feedback === "ok" && (
+                  <p className="text-sm text-green-600">Mensaje enviado. Te contactaremos pronto.</p>
+                )}
+                {feedback === "error" && (
+                  <p className="text-sm text-red-600">No se pudo enviar. Intenta nuevamente en unos minutos.</p>
+                )}
               </form>
             </CardContent>
           </Card>

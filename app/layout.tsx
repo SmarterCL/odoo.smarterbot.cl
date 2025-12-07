@@ -1,44 +1,27 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { WhatsAppFab } from "@/components/whatsapp-fab"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
-
 export const metadata: Metadata = {
-  title: "SmarterOS - Odoo ERP con IA e Integraciones",
-  description: "Odoo ERP en Chile sin integraciones dolorosas. WhatsApp, IA local y n8n integrados. Pruébalo gratis.",
+  title: "SmarterOS Chile | Odoo ERP + IA + Automatización",
+  description:
+    "Implementamos Odoo con conexiones listas a WhatsApp, IA local, n8n y tu negocio real. Especialistas Odoo en Chile con enfoque en automatización e inteligencia artificial.",
+  keywords: "Odoo, ERP, Chile, implementación, automatización, IA, n8n, WhatsApp, SmarterOS",
   generator: "v0.app",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
-  },
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <html lang="es">
-      <body className="font-sans antialiased">
+      <body className={`font-sans antialiased`}>
         {children}
+        <WhatsAppFab />
         <Analytics />
       </body>
     </html>

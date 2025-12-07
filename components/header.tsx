@@ -1,72 +1,91 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
+import { openDemoPopup } from "@/lib/open-demo"
+import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+const navItems = [
+  { label: "Inicio", href: "#" },
+  { label: "Servicios", href: "#servicios" },
+  { label: "Precios", href: "/precios" },
+  { label: "Diferenciadores", href: "#diferenciadores" },
+  { label: "Sectores", href: "#sectores" },
+  { label: "Contacto", href: "#contacto" },
+]
 
-  const navItems = [
-    { label: "Inicio", href: "#" },
-    { label: "Servicios", href: "#services" },
-    { label: "Diferenciadores", href: "#difference" },
-    { label: "Sectores", href: "#" },
-    { label: "Contacto", href: "#" },
-  ]
+export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur supports-[backdrop-filter]:bg-slate-950/60">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-foreground/95 backdrop-blur-sm">
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-sm">S</span>
             </div>
-            <span className="text-white font-semibold text-lg">SmarterOS</span>
-          </div>
+            <span className="text-xl font-bold text-background">SmarterOS</span>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
-                className="text-slate-300 hover:text-white transition-colors text-sm"
+                className="text-sm text-background/80 hover:text-background transition-colors"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-4">
-            <button className="hidden sm:block px-6 py-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-sm font-medium transition-all">
-              Ver Demo
-            </button>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 hover:bg-slate-800 rounded-md transition-colors"
-              onClick={() => setIsOpen(!isOpen)}
+          {/* CTA Button */}
+          <div className="hidden lg:block">
+            <Button
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={openDemoPopup}
             >
-              {isOpen ? <X size={20} className="text-white" /> : <Menu size={20} className="text-white" />}
-            </button>
+              Ver Demo
+            </Button>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden text-background"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden pb-4 space-y-2 border-t border-slate-800">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block px-4 py-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-md transition-colors"
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden py-4 border-t border-background/10">
+            <nav className="flex flex-col gap-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-sm text-background/80 hover:text-background transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Button
+                className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit"
+                onClick={() => {
+                  openDemoPopup()
+                  setMobileMenuOpen(false)
+                }}
               >
-                {item.label}
-              </a>
-            ))}
+                Ver Demo
+              </Button>
+            </nav>
           </div>
         )}
       </div>

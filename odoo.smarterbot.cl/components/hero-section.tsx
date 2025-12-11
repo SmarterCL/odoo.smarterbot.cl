@@ -1,11 +1,11 @@
 'use client'
 
 import Link from "next/link"
-import { openDemoPopup } from "@/lib/open-demo"
 import { DEMO_WHATSAPP_URL } from "@/lib/whatsapp-demo"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Zap, CheckCircle2 } from "lucide-react"
+import { YouTubeModal } from "@/components/youtube-modal"
 
 export function HeroSection() {
   return (
@@ -34,14 +34,15 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
-                onClick={openDemoPopup}
-              >
-                Quiero ver una demo
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
+              <YouTubeModal videoId="https://www.youtube.com/watch?v=-y4uG2rEXZY" title="Demo de SmarterOS">
+                <Button
+                  size="lg"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  Quiero ver una demo
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </YouTubeModal>
               <Link href={DEMO_WHATSAPP_URL} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
                 <Button
                   size="lg"

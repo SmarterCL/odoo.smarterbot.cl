@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { openDemoPopup } from "@/lib/open-demo"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
+import { YouTubeModal } from "@/components/youtube-modal"
 
 const navItems = [
   { label: "Inicio", href: "#" },
@@ -44,12 +44,13 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={openDemoPopup}
-            >
-              Ver Demo
-            </Button>
+            <YouTubeModal videoId="https://www.youtube.com/watch?v=-y4uG2rEXZY" title="Demo de SmarterOS">
+              <Button
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                Ver Demo
+              </Button>
+            </YouTubeModal>
           </div>
 
           {/* Mobile Menu Button */}
@@ -76,15 +77,14 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
-              <Button
-                className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit"
-                onClick={() => {
-                  openDemoPopup()
-                  setMobileMenuOpen(false)
-                }}
-              >
-                Ver Demo
-              </Button>
+              <YouTubeModal videoId="https://www.youtube.com/watch?v=-y4uG2rEXZY" title="Demo de SmarterOS">
+                <Button
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Ver Demo
+                </Button>
+              </YouTubeModal>
             </nav>
           </div>
         )}

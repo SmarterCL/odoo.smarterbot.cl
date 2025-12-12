@@ -1,4 +1,4 @@
-const DEMO_URL = "https://flow.smarterbot.cl/"
+const DEMO_URL = "https://flow.smarterbot.store/"
 
 export function openDemoPopup() {
   if (typeof window === "undefined") return

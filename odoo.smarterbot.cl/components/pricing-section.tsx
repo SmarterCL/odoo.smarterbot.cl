@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-import { Check, Copy, Mail, MessageCircle } from "lucide-react"
+import { Check, Copy, Mail, MessageCircle, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -11,9 +11,12 @@ const plans = [
         name: "Startup",
         description: "Para emprendimientos",
         basePrice: 29000,
+        price12m: 26500, // Estimated 10% discount for 12 months
         price24m: 25000,
+        commission12m: 35000, // Estimated commission for 12 months
         commission24m: 38000,
-        discountLabel: "–15% descuento",
+        discountLabel12m: "–10% descuento",
+        discountLabel24m: "–15% descuento",
         features: [
             "CRM básico",
             "Chat omnicanal",
@@ -27,9 +30,12 @@ const plans = [
         name: "Pro",
         description: "Para operación completa",
         basePrice: 49000,
+        price12m: 42500, // Estimated 12 month discount
         price24m: 39000,
+        commission12m: 65000, // Estimated commission for 12 months
         commission24m: 75000,
-        discountLabel: "–20% descuento",
+        discountLabel12m: "–12% descuento",
+        discountLabel24m: "–20% descuento",
         popular: true,
         features: [
             "WhatsApp Business + CRM",
@@ -44,9 +50,12 @@ const plans = [
         name: "Enterprise",
         description: "Para operación avanzada",
         basePrice: 99000,
+        price12m: 84000, // Estimated 12 month discount
         price24m: 74000,
+        commission12m: 110000, // Estimated commission for 12 months
         commission24m: 140000,
-        discountLabel: "–25% descuento",
+        discountLabel12m: "–17% descuento",
+        discountLabel24m: "–25% descuento",
         features: [
             "Todo Plan Pro +",
             "ERP completo",
@@ -83,24 +92,26 @@ export function PricingSection() {
 
                 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     {plans.map((plan) => {
-                        // Logic for price display based on cycle
-                        // Current user data only explicitly provided 24m vs Base ("Mensual" implied by base price).
-                        // For 12m, we'll interpolate or just show base for now to be safe, or use 24m price if user wants to push long term.
-                        // ACTUALLY, checking the user request: "Mensual / 12 Meses / 24 Meses"
-                        // And the detail provided: "–15% descuento / $29.000 / $25.000/mes" maps to the Discounted view.
-                        // So:
-                        // If Cycle == 1: Show Base Price. No Discount text.
-                        // If Cycle == 24: Show Discounted Price. Show Discount Text.
-                        // If Cycle == 12: We don't have explicit data. I will assume it's same as 24 or slightly more.
-                        // Let's use the 24m price for 12m for now as "Annual Plans" usually get the discount, unless specified otherwise. 
-                        // Better yet, let's keep it simple: 
-                        // 1 = Base Price
-                        // 12/24 = Discounted Price (since 24 is explicit, maybe 12 is same deal or slightly less discount?) 
-                        // I'll stick to the "24m" data for the "Discounted" view since that matches the text provided best.
+                        // Determine pricing based on selected cycle
+                        let currentPrice = plan.basePrice;
+                        let originalPrice = null;
+                        let discountLabel = "";
+                        let commission = null;
 
-                        const isDiscounted = cycle !== "1"
-                        const currentPrice = isDiscounted ? plan.price24m : plan.basePrice
-                        const originalPrice = isDiscounted ? plan.basePrice : null
+                        if (cycle === "12") {
+                            currentPrice = plan.price12m;
+                            originalPrice = plan.basePrice;
+                            discountLabel = plan.discountLabel12m;
+                            commission = plan.commission12m;
+                        } else if (cycle === "24") {
+                            currentPrice = plan.price24m;
+                            originalPrice = plan.basePrice;
+                            discountLabel = plan.discountLabel24m;
+                            commission = plan.commission24m;
+                        }
+
+                        // Generate the flow link with plan and cycle parameters
+                        const flowLink = `https://flow.smarterbot.store/?plan=${plan.name.toLowerCase()}&cycle=${cycle}`
 
                         return (
                             <Card
@@ -122,10 +133,10 @@ export function PricingSection() {
 
                                 <CardContent className="flex-1 space-y-6">
                                     <div>
-                                        {isDiscounted && (
+                                        {(cycle !== "1") && (
                                             <div className="flex items-center gap-2 mb-2">
                                                 <span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
-                                                    {plan.discountLabel}
+                                                    {discountLabel}
                                                 </span>
                                                 {originalPrice && (
                                                     <span className="text-sm text-muted-foreground line-through">
@@ -141,10 +152,10 @@ export function PricingSection() {
                                             <span className="text-muted-foreground mb-1">/mes</span>
                                         </div>
 
-                                        {/* Unique requirement from user: "Tu comisión" */}
-                                        {isDiscounted && (
+                                        {/* Display commission if not monthly plan */}
+                                        {(cycle !== "1") && commission && (
                                             <p className="text-sm text-primary font-medium mt-2">
-                                                Tu comisión: ${(plan.commission24m).toLocaleString('es-CL')}
+                                                Tu comisión: ${commission.toLocaleString('es-CL')}
                                             </p>
                                         )}
                                     </div>
@@ -159,16 +170,25 @@ export function PricingSection() {
                                     </ul>
                                 </CardContent>
 
-                                <CardFooter className="flex gap-4 border-t pt-6 text-muted-foreground">
-                                    <Button variant="ghost" size="icon" className="hover:text-[#25D366] hover:bg-[#25D366]/10">
-                                        <MessageCircle className="w-5 h-5" />
+                                <CardFooter className="flex flex-col gap-4 border-t pt-6 text-muted-foreground">
+                                    <Button
+                                        onClick={() => window.open(flowLink, '_blank')}
+                                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                                    >
+                                        Comenzar con {plan.name}
+                                        <ExternalLink className="ml-2 w-4 h-4" />
                                     </Button>
-                                    <Button variant="ghost" size="icon" className="hover:text-primary hover:bg-primary/10">
-                                        <Mail className="w-5 h-5" />
-                                    </Button>
-                                    <Button variant="ghost" size="icon" className="ml-auto hover:text-primary hover:bg-primary/10">
-                                        <Copy className="w-5 h-5" />
-                                    </Button>
+                                    <div className="flex gap-4 w-full">
+                                        <Button variant="ghost" size="icon" className="hover:text-[#25D366] hover:bg-[#25D366]/10 flex-1">
+                                            <MessageCircle className="w-5 h-5" />
+                                        </Button>
+                                        <Button variant="ghost" size="icon" className="hover:text-primary hover:bg-primary/10 flex-1">
+                                            <Mail className="w-5 h-5" />
+                                        </Button>
+                                        <Button variant="ghost" size="icon" className="hover:text-primary hover:bg-primary/10 flex-1">
+                                            <Copy className="w-5 h-5" />
+                                        </Button>
+                                    </div>
                                 </CardFooter>
                             </Card>
                         )

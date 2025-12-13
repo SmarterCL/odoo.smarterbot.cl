@@ -8,10 +8,9 @@ import { YouTubeModal } from "@/components/youtube-modal"
 
 const navItems = [
   { label: "Inicio", href: "/" },
-  { label: "Tecnología", href: "/tecnologia" },
-  { label: "Servicios", href: "/#servicios" },
+  { label: "Store", href: "/#servicios" },
+  { label: "Cómo funciona", href: "/tecnologia" },
   { label: "Precios", href: "/#precios" },
-  { label: "Diferenciadores", href: "/#diferenciadores" },
   { label: "Sectores", href: "/#sectores" },
   { label: "Contacto", href: "/#contacto" },
 ]

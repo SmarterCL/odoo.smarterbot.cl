@@ -8,10 +8,10 @@ import { YouTubeModal } from "@/components/youtube-modal"
 
 const navItems = [
   { label: "Inicio", href: "/" },
-  { label: "Tecnología", href: "/tecnologia" },
-  { label: "Servicios", href: "/#servicios" },
+  { label: "OperRouter LLM", href: "/tecnologia" },
+  { label: "Tienda N8N", href: "/#servicios" },
   { label: "Precios", href: "/#precios" },
-  { label: "Diferenciadores", href: "/#diferenciadores" },
+  { label: "Contenedor .OS", href: "/#diferenciadores" },
   { label: "Sectores", href: "/#sectores" },
   { label: "Contacto", href: "/#contacto" },
 ]

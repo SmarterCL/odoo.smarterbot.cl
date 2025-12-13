@@ -2,11 +2,11 @@ import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const benefits = [
-  "Odoo no queda solo: viene conectado a IA local, WhatsApp, n8n y tu stack",
-  "Todo corre en tu VPS o nuestro VPS gestionado, no dependes de un SaaS cerrado",
-  "Multi-empresa y multi-RUT desde el diseño, pensando en Chile",
+  "Odoo no queda solo: viene conectado a IA, WhatsApp y automatización",
+  "Infraestructura propia o VPS gestionado, no SaaS cerrado",
+  "Multi-empresa y multi-RUT desde el diseño, pensado para Chile",
   "Migración de canales de soporte a Chatwoot incluida",
-  "Documentación y scripts para que no quedes atado a una sola persona",
+  "Documentación y scripts para que no quedes atado a una persona",
 ]
 
 export function TransformSection() {

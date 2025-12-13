@@ -71,7 +71,7 @@ export function PricingSection() {
     const [cycle, setCycle] = useState("24") // default to 24 months as per request mockup implication
 
     return (
-        <section className="py-20 bg-background/50">
+        <section id="precios" className="py-20 bg-background/50">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold mb-4">Planes Smarter por industria</h2>
@@ -152,22 +152,16 @@ export function PricingSection() {
                                             <span className="text-muted-foreground mb-1">/mes</span>
                                         </div>
 
-                                        {/* Display commission if not monthly plan */}
-                                        {(cycle !== "1") && commission && (
-                                            <p className="text-sm text-primary font-medium mt-2">
-                                                Tu comisión: ${commission.toLocaleString('es-CL')}
-                                            </p>
-                                        )}
+                                        <ul className="space-y-3">
+                                            {plan.features.map((feature) => (
+                                                <li key={feature} className="flex items-start gap-2 text-sm">
+                                                    <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                                                    <span className="text-muted-foreground">{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
                                     </div>
 
-                                    <ul className="space-y-3">
-                                        {plan.features.map((feature) => (
-                                            <li key={feature} className="flex items-start gap-2 text-sm">
-                                                <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                                                <span className="text-muted-foreground">{feature}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
                                 </CardContent>
 
                                 <CardFooter className="flex flex-col gap-4 border-t pt-6 text-muted-foreground">

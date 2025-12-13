@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button"
 import { CheckCircle2, ArrowRight } from "lucide-react"
 
 const pilotFeatures = [
-  "Alcance limitado pero real (ventas + facturación, por ejemplo)",
-  "Datos de prueba o una muestra de tus datos reales",
-  "Automatización básica ya funcionando",
-  "Si no te aporta valor, no sigues. Sin letra chica.",
+  "Alcance limitado pero funcional (ventas + facturación, por ejemplo)",
+  "Datos de prueba o muestra de tus datos reales",
+  "Automatización básica ya operativa",
+  "Si no aporta valor, no continúas. Sin letra chica.",
 ]
 
 export function TestimonialsSection() {
@@ -16,10 +16,10 @@ export function TestimonialsSection() {
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-sm font-medium text-primary mb-4">Prueba sin riesgo</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">
-            ¿Te interesa probar Odoo sin sufrir un proyecto eterno?
+            ¿Quieres probar Odoo sin sufrir un proyecto eterno?
           </h2>
           <p className="text-muted-foreground mb-12">
-            Te ofrecemos un piloto guiado para que veas resultados reales antes de comprometerte.
+            Ofrecemos un piloto guiado para que veas resultados reales antes de comprometerte.
           </p>
 
           <Card className="bg-card text-left">

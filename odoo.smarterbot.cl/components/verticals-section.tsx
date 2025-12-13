@@ -6,32 +6,32 @@ const verticals = [
   {
     icon: Package,
     title: "Importación y distribución",
-    description: "Control total de gastos, documentación aduanera y logística internacional con trazabilidad completa.",
+    description: "Control de gastos, documentación aduanera y logística internacional con trazabilidad.",
   },
   {
     icon: Building2,
-    title: "Empresas de servicios B2B",
-    description: "Gestión de proyectos, hojas de tiempo, facturación automatizada y seguimiento de clientes.",
+    title: "Servicios B2B",
+    description: "Gestión de proyectos, horas, facturación y clientes.",
   },
   {
     icon: Truck,
     title: "Logística y transporte",
-    description: "Optimiza rutas, gestiona flotas y controla inventarios en tiempo real con IA.",
+    description: "Optimización de rutas, flotas e inventarios con IA.",
   },
   {
     icon: ShoppingCart,
     title: "Alimentos y retail",
-    description: "Trazabilidad completa, gestión de lotes, fechas de vencimiento y punto de venta integrado.",
+    description: "Trazabilidad, lotes, vencimientos y punto de venta integrado.",
   },
   {
     icon: Laptop,
     title: "SaaS / tecnología",
-    description: "Facturación recurrente, gestión de suscripciones y métricas de producto.",
+    description: "Facturación recurrente, suscripciones y métricas de producto.",
   },
   {
     icon: Globe,
     title: "Comercio exterior",
-    description: "Multi-moneda, multi-empresa y gestión documental para operaciones internacionales.",
+    description: "Multi-moneda, multi-empresa y gestión documental.",
   },
 ]
 
@@ -45,8 +45,8 @@ export function VerticalsSection() {
             Sectores donde SmarterOS + Odoo ya marcan la diferencia
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Cada industria tiene particularidades. SmarterOS te da un ERP + automatización + canales digitales adaptados
-            a la realidad chilena.
+            Cada industria tiene particularidades.
+            SmarterOS entrega ERP + automatización + canales digitales adaptados a la realidad chilena.
           </p>
         </div>
 

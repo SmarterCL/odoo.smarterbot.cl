@@ -39,8 +39,8 @@ export function Footer() {
               <span className="text-xl font-bold">SmarterOS</span>
             </Link>
             <p className="text-background/70 max-w-sm leading-relaxed">
-              Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama. Chile - proyectos
-              remotos y presenciales.
+              Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
+              Chile · proyectos remotos y presenciales.
             </p>
             <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
               <a href={DEMO_WHATSAPP_URL}>Agenda una demo</a>

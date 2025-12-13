@@ -3,10 +3,10 @@
 import { useEffect, useState, useRef } from "react"
 
 const stats = [
-  { value: 70, suffix: "%", label: "Ahorro en tiempo de integración" },
-  { value: 100, suffix: "%", label: "Control de tu infraestructura" },
-  { value: 24, suffix: "/7", label: "Monitoreo de sistemas" },
-  { value: 0, suffix: "", label: "Dependencia de SaaS cerrados", displayValue: "Cero" },
+  { value: 0, suffix: "%", label: "Dependencia de SaaS cerrados", displayValue: "0%" },
+  { value: 0, suffix: "%", label: "Pérdida de control de infraestructura", displayValue: "0%" },
+  { value: 24, suffix: "/7", label: "Monitoreo continuo de sistemas" },
+  { value: 0, suffix: "", label: "Fricción en integraciones", displayValue: "Cero" },
 ]
 
 function AnimatedNumber({ value, suffix, displayValue }: { value: number; suffix: string; displayValue?: string }) {
@@ -69,7 +69,7 @@ export function StatsSection() {
           <p className="text-sm font-medium text-primary mb-4">SmarterOS en números</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-balance">Resultados que marcan la diferencia</h2>
           <p className="text-background/70 max-w-2xl mx-auto">
-            Llevamos años trabajando con empresas chilenas que necesitan algo más que un ERP instalado.
+            Trabajamos con empresas chilenas que necesitan algo más que un ERP instalado.
           </p>
         </div>
 

@@ -14,7 +14,7 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Teléfono",
-    value: "+56979540471",
+    value: "+56 9 7954 0471",
     href: "tel:+56979540471",
   },
   {
@@ -26,12 +26,12 @@ const contactInfo = [
   {
     icon: Clock,
     label: "Horario",
-    value: "Lunes a Viernes, 9:00-18:00",
+    value: "Lunes a viernes · 9:00 – 18:00",
   },
   {
     icon: MapPin,
     label: "Ubicación",
-    value: "Chile - Proyectos remotos y presenciales",
+    value: "Chile · remoto y presencial",
   },
 ]
 
@@ -78,10 +78,10 @@ export function ContactSection() {
                 Hablemos de tu proyecto
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                SmarterOS Chile - Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
+                SmarterOS Chile – Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Chile - proyectos remotos y presenciales.
+                Chile · proyectos remotos y presenciales.
               </p>
               <Button
                 className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90"

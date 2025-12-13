@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { PlatformSection } from "@/components/platform-section"
+import { ServicesSection } from "@/components/services-section"
 import { PricingSection } from "@/components/pricing-section"
 import { TransformSection } from "@/components/transform-section"
 import { StatsSection } from "@/components/stats-section"
@@ -15,6 +16,7 @@ export default function HomePage() {
       <Header />
       <HeroSection />
       <PlatformSection />
+      <ServicesSection />
       <PricingSection />
       <TransformSection />
       <StatsSection />

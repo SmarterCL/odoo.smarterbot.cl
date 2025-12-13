@@ -69,19 +69,20 @@ export function ContactSection() {
   return (
     <section id="contacto" className="py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left - Contact Info */}
-          <div className="space-y-8 h-full flex flex-col">
-            <div>
-              <p className="text-sm font-medium text-primary mb-4">Contacto</p>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">
-                Hablemos de tu proyecto
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                SmarterOS Chile – Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
-              </p>
-            </div>
+        {/* Header - Full Width */}
+        <div className="mb-12 lg:mb-16">
+          <p className="text-sm font-medium text-primary mb-4">Contacto</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">
+            Hablemos de tu proyecto
+          </h2>
+          <p className="text-muted-foreground leading-relaxed max-w-2xl">
+            SmarterOS Chile – Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
+          </p>
+        </div>
 
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Left - Contact Info & Map */}
+          <div className="space-y-8 h-full flex flex-col">
             <div className="grid sm:grid-cols-2 gap-4">
               {contactInfo.map((info) => (
                 <Card key={info.label} className="border-border/50">

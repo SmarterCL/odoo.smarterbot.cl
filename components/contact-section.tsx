@@ -31,7 +31,7 @@ const contactInfo = [
   {
     icon: MapPin,
     label: "Ubicación",
-    value: "Chile · remoto y presencial",
+    value: "Padre Mariano 103, Providencia",
   },
 ]
 
@@ -71,7 +71,7 @@ export function ContactSection() {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Left - Contact Info */}
-          <div className="space-y-8">
+          <div className="space-y-8 h-full flex flex-col">
             <div>
               <p className="text-sm font-medium text-primary mb-4">Contacto</p>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 text-balance">
@@ -80,15 +80,6 @@ export function ContactSection() {
               <p className="text-muted-foreground leading-relaxed">
                 SmarterOS Chile – Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Chile · proyectos remotos y presenciales.
-              </p>
-              <Button
-                className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
-                onClick={openWhatsAppDemo}
-              >
-                Agenda una demo
-              </Button>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
@@ -114,6 +105,19 @@ export function ContactSection() {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+
+            {/* Map */}
+            <div className="w-full h-64 rounded-2xl overflow-hidden border border-border/50">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.626777644265!2d-70.61864969999999!3d-33.4330991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf6408756317%3A0xc486221c9751703f!2sPadre%20Mariano%20103%2C%207500027%20Providencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1sen!2scl!4v1707579178492!5m2!1sen!2scl"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
 
             <div className="p-6 bg-primary/5 rounded-2xl border border-primary/20">

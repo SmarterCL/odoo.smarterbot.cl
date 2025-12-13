@@ -126,7 +126,7 @@ export function ContactSection() {
           </div>
 
           {/* Right - Contact Form */}
-          <Card className="border-border/50">
+          <Card className="border-border/50 h-full">
             <CardContent className="p-6">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">

@@ -30,7 +30,7 @@ export function Footer() {
     <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand */}
+          {/* Brand & Legal */}
           <div className="lg:col-span-2 space-y-6">
             <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
@@ -42,6 +42,14 @@ export function Footer() {
               Plataforma de automatización y ERP basada en Odoo, n8n, Chatwoot, Supabase y Ollama.
               Chile · proyectos remotos y presenciales.
             </p>
+
+            <div className="text-xs text-background/50 space-y-1 pt-4 border-t border-background/10">
+              <p className="font-semibold text-background/70">SMARTER SPA</p>
+              <p>RUT: 78.233.417-4</p>
+              <p>Servicios de consultoría de desarrollo de software</p>
+              <p>Padre Mariano 103 Of 201, Providencia, Santiago</p>
+            </div>
+
             <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
               <a href={DEMO_WHATSAPP_URL}>Agenda una demo</a>
             </Button>

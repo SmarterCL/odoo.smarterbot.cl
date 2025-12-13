@@ -69,31 +69,13 @@ export function HeroSection() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
               <img
-                src="/modern-tech-dashboard-with-automation-flows-and-ai.jpg"
-                alt="SmarterOS Dashboard con automatización e IA"
+                src="/odoo-homepage-es.png"
+                alt="Odoo ERP Interface"
                 className="object-cover w-full h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
 
-              {/* Floating Card */}
-              <div className="absolute bottom-6 left-6 right-6 bg-card/95 backdrop-blur-sm rounded-xl p-4 text-card-foreground">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Ahorro en integración</p>
-                    <p className="text-2xl font-bold text-primary">+70%</p>
-                  </div>
-                  <div className="h-12 w-px bg-border" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Tiempo de setup</p>
-                    <p className="text-2xl font-bold text-primary">-50%</p>
-                  </div>
-                  <div className="h-12 w-px bg-border" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Sin SaaS cerrado</p>
-                    <p className="text-2xl font-bold text-primary">100%</p>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>

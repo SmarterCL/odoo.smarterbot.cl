@@ -127,8 +127,8 @@ export function ContactSection() {
 
           {/* Right - Contact Form */}
           <Card className="border-border/50 h-full">
-            <CardContent className="p-6">
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <CardContent className="p-6 h-full">
+              <form onSubmit={handleSubmit} className="flex flex-col h-full gap-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-foreground">
@@ -169,14 +169,14 @@ export function ContactSection() {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 flex-1 flex flex-col">
                   <label htmlFor="message" className="text-sm font-medium text-foreground">
                     Mensaje
                   </label>
                   <Textarea
                     id="message"
                     placeholder="Cuéntanos sobre tu proyecto..."
-                    rows={5}
+                    className="flex-1 min-h-[120px] resize-none"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
@@ -186,7 +186,7 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 mt-auto"
                   disabled={sending}
                 >
                   {sending ? "Enviando..." : "Enviar mensaje"}

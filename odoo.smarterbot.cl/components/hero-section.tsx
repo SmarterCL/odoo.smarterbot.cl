@@ -26,11 +26,12 @@ export function HeroSection() {
             </Badge>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-balance">
-              Odoo ERP en Chile, <span className="text-primary">sin integraciones dolorosas</span>
+              Odoo ERP en Chile, <span className="text-primary">listo para operar desde el día uno</span>
             </h1>
 
             <p className="text-lg text-background/70 max-w-xl leading-relaxed">
-              Implementamos Odoo con conexiones listas a WhatsApp, IA local, n8n y tu negocio real. Pruébalo gratis.
+              Implementamos Odoo con conexiones reales a WhatsApp, automatización n8n e IA local.
+              Todo integrado. Sin proyectos eternos. Sin integraciones dolorosas.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -49,7 +50,7 @@ export function HeroSection() {
                   variant="outline"
                   className="w-full border-background/30 text-background hover:bg-background/10 bg-transparent"
                 >
-                  Agenda una llamada 20 min
+                  Agenda una llamada · 20 min
                 </Button>
               </Link>
             </div>

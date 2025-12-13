@@ -7,7 +7,7 @@ const features = [
     {
         icon: MessageCircle,
         title: "WhatsApp Business",
-        description: "Ventas y soporte integrado",
+        description: "Ventas y soporte en un solo canal",
         color: "text-green-500",
         bgColor: "bg-green-500/10",
     },
@@ -21,7 +21,7 @@ const features = [
     {
         icon: Database,
         title: "Odoo ERP",
-        description: "Facturación electrónica y gestión",
+        description: "Facturación electrónica y gestión operativa",
         color: "text-purple-500",
         bgColor: "bg-purple-500/10",
     },
@@ -35,7 +35,7 @@ const features = [
     {
         icon: CreditCard,
         title: "Flow",
-        description: "Cobros por redes sociales",
+        description: "Cobros por redes sociales y links de pago",
         color: "text-indigo-500",
         bgColor: "bg-indigo-500/10",
     },
@@ -50,7 +50,7 @@ const features = [
 
 export function PlatformSection() {
     return (
-        <section className="py-20 lg:py-32 bg-background">
+        <section id="servicios" className="py-20 lg:py-32 bg-background">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16 max-w-3xl mx-auto">
                     <p className="text-sm font-medium text-primary mb-4 uppercase tracking-wider">
@@ -60,7 +60,8 @@ export function PlatformSection() {
                         Smarterbot es la interfaz de acceso a SmarterOS.
                     </h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">
-                        Un sistema operativo en la nube que integra herramientas reales de operación diaria en un solo entorno. Todo funciona conectado. Sin duplicar datos. Sin operaciones manuales innecesarias.
+                        SmarterOS es un sistema operativo en la nube que integra herramientas reales de operación diaria en un solo entorno.
+                        Todo funciona conectado. Sin duplicar datos. Sin tareas manuales innecesarias.
                     </p>
                 </div>
 

@@ -28,3 +28,23 @@ Continue building your app on:
 2. Deploy your chats from the v0 interface
 3. Changes are automatically pushed to this repository
 4. Vercel deploys the latest version from this repository
+
+## Contacto (Frontend → FastAPI)
+
+La página solo envía JSON a FastAPI; toda la lógica de Mailgun/Odoo/Supabase vive en FastAPI.
+
+`POST /api/contact`
+```json
+{
+  "name": "Juan Perez",
+  "email": "juan@mail.com",
+  "phone": "+569...",
+  "message": "Quiero demo",
+  "source": "odoo-landing"
+}
+```
+
+Variables de entorno:
+- `FASTAPI_CONTACT_URL` (obligatorio): URL donde FastAPI recibe el contacto.
+- `FASTAPI_API_KEY` (opcional): se envía en la cabecera `X-API-Key`.
+- `CONTACT_SOURCE` (opcional): valor por defecto para `source` (fallback `odoo-landing`).

@@ -39,8 +39,9 @@ export function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
+    phone: "",
     message: "",
+    source: "odoo-landing",
   })
   const [sending, setSending] = useState(false)
   const [feedback, setFeedback] = useState<"idle" | "ok" | "error">("idle")
@@ -57,7 +58,7 @@ export function ContactSection() {
       })
       if (!res.ok) throw new Error("Error enviando formulario")
       setFeedback("ok")
-      setFormData({ name: "", email: "", company: "", message: "" })
+      setFormData({ name: "", email: "", phone: "", message: "", source: "odoo-landing" })
     } catch (err) {
       console.error(err)
       setFeedback("error")
@@ -146,11 +147,11 @@ export function ContactSection() {
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       required
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground">
-                      Email
-                    </label>
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium text-foreground">
+                    Email
+                  </label>
                     <Input
                       id="email"
                       type="email"
@@ -158,21 +159,22 @@ export function ContactSection() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="company" className="text-sm font-medium text-foreground">
-                    Empresa
-                  </label>
-                  <Input
-                    id="company"
-                    placeholder="Nombre de tu empresa"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   />
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="phone" className="text-sm font-medium text-foreground">
+                  Teléfono (opcional)
+                </label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="+56 9 1234 5678"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                />
+              </div>
 
                 <div className="space-y-2 flex-1 flex flex-col">
                   <label htmlFor="message" className="text-sm font-medium text-foreground">

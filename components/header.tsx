@@ -13,6 +13,7 @@ const navItems = [
   { label: "Precios", href: "/#precios" },
   { label: "Contenedor .OS", href: "/#diferenciadores" },
   { label: "Sectores", href: "/#sectores" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contacto", href: "/#contacto" },
 ]
 

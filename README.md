@@ -45,6 +45,7 @@ La página solo envía JSON a FastAPI; toda la lógica de Mailgun/Odoo/Supabase 
 ```
 
 Variables de entorno:
-- `FASTAPI_CONTACT_URL` (obligatorio): URL donde FastAPI recibe el contacto.
+- `FASTAPI_CONTACT_URL` (recomendado): URL donde FastAPI recibe el contacto.
+- `NEXT_PUBLIC_FASTAPI_CONTACT_URL` (opcional): fallback público; si ninguna está definida se usa `https://odoo.smarterbot.cl/api/contact`.
 - `FASTAPI_API_KEY` (opcional): se envía en la cabecera `X-API-Key`.
 - `CONTACT_SOURCE` (opcional): valor por defecto para `source` (fallback `odoo-landing`).

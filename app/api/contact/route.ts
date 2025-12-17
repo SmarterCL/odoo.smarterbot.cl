@@ -8,7 +8,10 @@ type ContactPayload = {
   source: string
 }
 
-const FASTAPI_CONTACT_URL = process.env.FASTAPI_CONTACT_URL
+const FASTAPI_CONTACT_URL =
+  process.env.FASTAPI_CONTACT_URL ||
+  process.env.NEXT_PUBLIC_FASTAPI_CONTACT_URL ||
+  "https://odoo.smarterbot.cl/api/contact"
 const FASTAPI_API_KEY = process.env.FASTAPI_API_KEY
 const DEFAULT_SOURCE = process.env.CONTACT_SOURCE || "odoo-landing"
 
@@ -27,10 +30,6 @@ function isValidEmail(email: string) {
 
 export async function POST(request: Request) {
   try {
-    if (!FASTAPI_CONTACT_URL) {
-      return NextResponse.json({ error: "Falta FASTAPI_CONTACT_URL" }, { status: 500 })
-    }
-
     const body = await request.json().catch(() => null)
     const name = asCleanString(body?.name)
     const email = asCleanString(body?.email).toLowerCase()

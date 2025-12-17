@@ -45,22 +45,34 @@ export function ContactSection() {
   })
   const [sending, setSending] = useState(false)
   const [feedback, setFeedback] = useState<"idle" | "ok" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSending(true)
     setFeedback("idle")
+    setErrorMessage(null)
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
-      if (!res.ok) throw new Error("Error enviando formulario")
+      if (!res.ok) {
+        let detail = "No se pudo enviar"
+        try {
+          const payload = await res.json()
+          detail = payload?.error || detail
+        } catch {
+          detail = `${detail} (status ${res.status})`
+        }
+        throw new Error(detail)
+      }
       setFeedback("ok")
       setFormData({ name: "", email: "", phone: "", message: "", source: "odoo-landing" })
     } catch (err) {
       console.error(err)
+      setErrorMessage(err instanceof Error ? err.message : "No se pudo enviar")
       setFeedback("error")
     } finally {
       setSending(false)
@@ -203,7 +215,9 @@ export function ContactSection() {
                   <p className="text-sm text-green-600">Mensaje enviado. Te contactaremos pronto.</p>
                 )}
                 {feedback === "error" && (
-                  <p className="text-sm text-red-600">No se pudo enviar. Intenta nuevamente en unos minutos.</p>
+                  <p className="text-sm text-red-600">
+                    {errorMessage || "No se pudo enviar. Intenta nuevamente en unos minutos."}
+                  </p>
                 )}
               </form>
             </CardContent>

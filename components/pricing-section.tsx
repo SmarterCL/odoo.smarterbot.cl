@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-import { Check, Copy, Mail, MessageCircle, ExternalLink } from "lucide-react"
+import { Check, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -172,17 +172,6 @@ export function PricingSection() {
                                         Comenzar con {plan.name}
                                         <ExternalLink className="ml-2 w-4 h-4" />
                                     </Button>
-                                    <div className="flex gap-4 w-full">
-                                        <Button variant="ghost" size="icon" className="hover:text-[#25D366] hover:bg-[#25D366]/10 flex-1">
-                                            <MessageCircle className="w-5 h-5" />
-                                        </Button>
-                                        <Button variant="ghost" size="icon" className="hover:text-primary hover:bg-primary/10 flex-1">
-                                            <Mail className="w-5 h-5" />
-                                        </Button>
-                                        <Button variant="ghost" size="icon" className="hover:text-primary hover:bg-primary/10 flex-1">
-                                            <Copy className="w-5 h-5" />
-                                        </Button>
-                                    </div>
                                 </CardFooter>
                             </Card>
                         )

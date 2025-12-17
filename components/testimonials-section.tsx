@@ -1,6 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, ArrowRight } from "lucide-react"
+import { CheckCircle2, ArrowRight, Quote } from "lucide-react"
+
+const TRIAL_URL = "https://www.odoo.com/es/trial"
 
 const pilotFeatures = [
   "Alcance limitado pero funcional (ventas + facturación, por ejemplo)",
@@ -34,14 +37,31 @@ export function TestimonialsSection() {
               </ul>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Quiero probar Odoo con SmarterOS
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Link href={TRIAL_URL} target="_blank" rel="noreferrer">
+                    Probar Odoo ahora
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
                 </Button>
-                <Button size="lg" variant="outline">
-                  Envíame más información
+                <Button asChild size="lg" variant="outline">
+                  <Link href="/#contacto">Envíame más información</Link>
                 </Button>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mt-10 bg-card/80 text-left">
+            <CardContent className="p-8 space-y-4">
+              <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                <Quote className="w-4 h-4" />
+                Caso real
+              </div>
+              <p className="text-lg text-foreground leading-relaxed">
+                “El tiempo que nos toma procesar nuestros documentos contables disminuyó de manera notable, en algunos casos pasó de 2 días a tan solo 5 horas. Gracias a esto, ahora podemos concentrarnos en lo que más importa: en informar y asesorar a nuestros clientes.”
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Harry Van Donink · Director general de KPMG Bélgica
+              </p>
             </CardContent>
           </Card>
         </div>

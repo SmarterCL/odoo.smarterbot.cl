@@ -4,8 +4,10 @@ import Link from "next/link"
 import { DEMO_WHATSAPP_URL } from "@/lib/whatsapp-demo"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Zap, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Zap, CheckCircle2, Sparkles } from "lucide-react"
 import { YouTubeModal } from "@/components/youtube-modal"
+
+const TRIAL_URL = "https://www.odoo.com/es/trial"
 
 export function HeroSection() {
   return (
@@ -40,10 +42,19 @@ export function HeroSection() {
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
-                  Quiero ver una demo
+                  Ver video demo
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </YouTubeModal>
+              <Link href={TRIAL_URL} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="w-full"
+                >
+                  Probar Odoo ahora
+                </Button>
+              </Link>
               <Link href={DEMO_WHATSAPP_URL} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
                 <Button
                   size="lg"
@@ -56,6 +67,19 @@ export function HeroSection() {
             </div>
 
             <div className="flex flex-wrap gap-6 pt-4">
+              {[
+                "Libera tu potencial de crecimiento",
+                "No necesitas tarjeta de crédito",
+                "Recibe acceso instantáneo",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2 text-sm text-background/70">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-6 pt-2">
               {["WhatsApp integrado", "IA local con Ollama", "Automatización n8n"].map((item) => (
                 <div key={item} className="flex items-center gap-2 text-sm text-background/70">
                   <CheckCircle2 className="w-4 h-4 text-primary" />

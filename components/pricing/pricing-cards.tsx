@@ -1,7 +1,9 @@
 "use client"
 
 import { Check } from "lucide-react"
-import { openDemoPopup } from "@/lib/open-demo"
+import Link from "next/link"
+
+const TRIAL_URL = "https://www.odoo.com/es/trial"
 
 const plans = [
   {
@@ -96,16 +98,18 @@ export default function PricingCards() {
                   <span className="text-muted-foreground text-sm">/mes + IVA</span>
                 </div>
 
-                <button
-                  className={`w-full py-3 rounded-lg font-semibold transition-colors mb-6 ${
+                <Link
+                  href={TRIAL_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`block text-center w-full py-3 rounded-lg font-semibold transition-colors mb-6 ${
                     plan.highlighted
                       ? "bg-primary text-primary-foreground hover:bg-primary/90"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
                   }`}
-                  onClick={openDemoPopup}
                 >
-                  Quiero ver demo
-                </button>
+                  Probar Odoo ahora
+                </Link>
 
                 <div className="space-y-3">
                   {plan.features.map((feature, idx) => (

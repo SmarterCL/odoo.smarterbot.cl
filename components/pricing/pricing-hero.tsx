@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { openDemoPopup } from "@/lib/open-demo"
+
+const TRIAL_URL = "https://www.odoo.com/es/trial"
 
 export default function PricingHero() {
   return (
@@ -16,12 +17,14 @@ export default function PricingHero() {
           SmarterOS.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button
+          <Link
+            href={TRIAL_URL}
+            target="_blank"
+            rel="noreferrer"
             className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors shadow-sm"
-            onClick={openDemoPopup}
           >
-            Ver Demo
-          </button>
+            Probar Odoo ahora
+          </Link>
           <Link
             href="#contacto"
             className="px-8 py-3 bg-secondary text-secondary-foreground rounded-lg font-semibold hover:bg-secondary/80 transition-colors border border-border"

@@ -1,6 +1,7 @@
 import Link from "next/link"
-import { DEMO_WHATSAPP_URL } from "@/lib/whatsapp-demo"
 import { Button } from "@/components/ui/button"
+
+const TRIAL_URL = "https://www.odoo.com/es/trial"
 
 const footerLinks = {
   servicios: [
@@ -21,7 +22,7 @@ const footerLinks = {
     { label: "Blog", href: "#" },
     { label: "Documentación", href: "#" },
     { label: "Casos de uso", href: "#" },
-    { label: "FAQ", href: "#" },
+    { label: "FAQ", href: "/faq" },
   ],
 }
 
@@ -51,7 +52,7 @@ export function Footer() {
             </div>
 
             <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-              <a href={DEMO_WHATSAPP_URL}>Agenda una demo</a>
+              <a href={TRIAL_URL} target="_blank" rel="noreferrer">Probar Odoo ahora</a>
             </Button>
           </div>
 

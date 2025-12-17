@@ -85,12 +85,12 @@ export default function TechnologyPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <YouTubeModal videoId="https://www.youtube.com/watch?v=-y4uG2rEXZY" title="Demo de SmarterOS">
                             <Button size="lg" className="text-lg h-12 px-8">
-                                Quiero ver esto funcionando
+                                Ver video demo
                             </Button>
                         </YouTubeModal>
-                        <Link href="/#contacto">
+                        <Link href="https://www.odoo.com/es/trial" target="_blank" rel="noreferrer">
                             <Button variant="outline" size="lg" className="text-lg h-12 px-8">
-                                Agendar demo Odoo 19
+                                Probar Odoo ahora
                             </Button>
                         </Link>
                     </div>

@@ -2,7 +2,9 @@
 
 import React from "react"
 import { Check, X } from "lucide-react"
-import { openDemoPopup } from "@/lib/open-demo"
+import Link from "next/link"
+
+const TRIAL_URL = "https://www.odoo.com/es/trial"
 
 const plans = ["Base", "Operación", "Empresa", "Corporativo"]
 
@@ -100,12 +102,14 @@ export default function PricingComparison() {
             infraestructura propia).
           </p>
           <div className="flex justify-center">
-            <button
+            <Link
+              href={TRIAL_URL}
+              target="_blank"
+              rel="noreferrer"
               className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-              onClick={openDemoPopup}
             >
-              Solicitar demo
-            </button>
+              Probar Odoo ahora
+            </Link>
           </div>
         </div>
       </div>

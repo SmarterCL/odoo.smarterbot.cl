@@ -1,7 +1,7 @@
-# Technical Implementation Guide: Next.js Website to Odoo 19 Integration
+# Technical Implementation Guide: Next.js Website to Odoo 16 Integration
 
 ## Prerequisites
-- Running Odoo 19 instance with API access
+- Running Odoo 16 instance with API access
 - n8n instance for workflow automation
 - SmarterOS with Open Specs and MCP capabilities
 - Next.js website (odoo.smarterbot.cl)

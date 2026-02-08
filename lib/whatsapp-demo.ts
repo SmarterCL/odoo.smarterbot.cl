@@ -1,5 +1,5 @@
 const DEMO_WHATSAPP_NUMBER = "56979540471"
-export const DEMO_WHATSAPP_MESSAGE = "Quiero una reunion para Odoo 19"
+export const DEMO_WHATSAPP_MESSAGE = "Quiero una reunion para Odoo 16"
 
 export const DEMO_WHATSAPP_URL = `https://wa.me/${DEMO_WHATSAPP_NUMBER}?text=${encodeURIComponent(DEMO_WHATSAPP_MESSAGE)}`
 

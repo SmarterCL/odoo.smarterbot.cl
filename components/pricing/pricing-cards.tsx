@@ -26,7 +26,7 @@ const plans = [
     description: "CRM + ERP + WhatsApp + BD",
     features: [
       "Todo del Plan Base",
-      "ERP Odoo 19 (ventas + compras + inventario)",
+      "ERP Odoo 16 (ventas + compras + inventario)",
       "Base de Datos empresarial",
       "5 flujos n8n v2",
       "Catálogo unificado",
@@ -39,7 +39,7 @@ const plans = [
     price: "10",
     description: "ERP Completo + IA + Automatización",
     features: [
-      "Odoo 19 con módulos avanzados",
+      "Odoo 16 con módulos avanzados",
       "Integraciones (ecommerce, portales, facturación)",
       "IA local con Ollama",
       "WhatsApp avanzado (plantillas, triggers)",
@@ -77,11 +77,10 @@ export default function PricingCards() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-xl transition-all ${
-                plan.highlighted
-                  ? "bg-primary/5 border-2 border-primary shadow-lg scale-105 md:scale-100"
-                  : "bg-card border border-border hover:border-primary/50 hover:shadow-md"
-              }`}
+              className={`rounded-xl transition-all ${plan.highlighted
+                ? "bg-primary/5 border-2 border-primary shadow-lg scale-105 md:scale-100"
+                : "bg-card border border-border hover:border-primary/50 hover:shadow-md"
+                }`}
             >
               <div className="p-6">
                 {plan.highlighted && (
@@ -102,11 +101,10 @@ export default function PricingCards() {
                   href={TRIAL_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className={`block text-center w-full py-3 rounded-lg font-semibold transition-colors mb-6 ${
-                    plan.highlighted
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
-                  }`}
+                  className={`block text-center w-full py-3 rounded-lg font-semibold transition-colors mb-6 ${plan.highlighted
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
+                    }`}
                 >
                   Probar Odoo ahora
                 </Link>

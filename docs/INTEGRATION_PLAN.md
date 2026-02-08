@@ -1,7 +1,7 @@
-# SmarterOS - Odoo 19 Integration Plan
+# SmarterOS - Odoo 16 Integration Plan
 
 ## Overview
-This document outlines the integration strategy between the SmarterOS website (Next.js) and Odoo 19 ERP system using Open Specs, n8n for workflow automation, and Model Context Protocol (MCP).
+This document outlines the integration strategy between the SmarterOS website (Next.js) and Odoo 16 ERP system using Open Specs, n8n for workflow automation, and Model Context Protocol (MCP).
 
 ## Architecture Components
 

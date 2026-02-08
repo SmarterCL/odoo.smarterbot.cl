@@ -10,7 +10,7 @@ export default function PricingHero() {
       <div className="max-w-4xl mx-auto text-center">
         <p className="text-sm font-semibold text-primary mb-3">Planes SmarterOS</p>
         <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 text-pretty">
-          Automatización comercial con Odoo 19 + WhatsApp + n8n
+          Automatización comercial con Odoo 16 + WhatsApp + n8n
         </h1>
         <p className="text-lg text-muted-foreground mb-10 text-pretty">
           Precios en UF + IVA, sin SaaS externo. Toda la infraestructura y datos bajo tu control, alineado al stack

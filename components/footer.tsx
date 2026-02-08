@@ -102,12 +102,15 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-16 pt-8 border-t border-background/10 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-background/50">© 2025 SmarterOS Chile. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-6">
-            <Link href="#" className="text-sm text-background/50 hover:text-background transition-colors">
-              Política de Privacidad
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href="/privacidad" className="text-sm text-background/50 hover:text-background transition-colors">
+              Privacidad
             </Link>
-            <Link href="#" className="text-sm text-background/50 hover:text-background transition-colors">
-              Términos de Servicio
+            <Link href="/terminos" className="text-sm text-background/50 hover:text-background transition-colors">
+              Términos
+            </Link>
+            <Link href="/data-deletion" className="text-sm text-background/50 hover:text-background transition-colors">
+              Eliminación de Datos
             </Link>
           </div>
         </div>

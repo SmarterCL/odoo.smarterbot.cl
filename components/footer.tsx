@@ -106,8 +106,8 @@ export function Footer() {
             <Link href="/privacidad" className="text-sm text-background/50 hover:text-background transition-colors">
               Privacidad
             </Link>
-            <Link href="/terminos" className="text-sm text-background/50 hover:text-background transition-colors">
-              Términos
+            <Link href="/condiciones" className="text-sm text-background/50 hover:text-background transition-colors">
+              Condiciones
             </Link>
             <Link href="/datadelete" className="text-sm text-background/50 hover:text-background transition-colors">
               Eliminación de Datos

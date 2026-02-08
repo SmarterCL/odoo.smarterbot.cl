@@ -109,7 +109,7 @@ export function Footer() {
             <Link href="/terminos" className="text-sm text-background/50 hover:text-background transition-colors">
               Términos
             </Link>
-            <Link href="/data-deletion" className="text-sm text-background/50 hover:text-background transition-colors">
+            <Link href="/datadelete" className="text-sm text-background/50 hover:text-background transition-colors">
               Eliminación de Datos
             </Link>
           </div>
